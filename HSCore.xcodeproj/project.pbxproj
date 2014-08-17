@@ -7,15 +7,44 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0A3DEE3E19A0FFB300A14E0C /* HSCBundleModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A3DEE3C19A0FFB300A14E0C /* HSCBundleModel.h */; };
+		0A3DEE3F19A0FFB300A14E0C /* HSCBundleModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A3DEE3D19A0FFB300A14E0C /* HSCBundleModel.m */; };
+		0A3DEE4219A1013000A14E0C /* HSCBundlesRegistry.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A3DEE4019A1013000A14E0C /* HSCBundlesRegistry.h */; };
+		0A3DEE4319A1013000A14E0C /* HSCBundlesRegistry.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A3DEE4119A1013000A14E0C /* HSCBundlesRegistry.m */; };
+		0A3DEE4F19A1041D00A14E0C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A3DEE4E19A1041D00A14E0C /* main.m */; };
+		0A3DEE5219A1041D00A14E0C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A3DEE5119A1041D00A14E0C /* AppDelegate.m */; };
+		0A3DEE5419A1041D00A14E0C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0A3DEE5319A1041D00A14E0C /* Images.xcassets */; };
+		0A3DEE5719A1041D00A14E0C /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A3DEE5519A1041D00A14E0C /* MainMenu.xib */; };
+		0A3DEE7419A104F200A14E0C /* HSCBundlesRegistryTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A3DEE7319A104F200A14E0C /* HSCBundlesRegistryTests.m */; };
+		0A3DEE7C19A13E5400A14E0C /* HSCBundlesRegistry+HSC_CleanUp.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A3DEE7B19A13E5400A14E0C /* HSCBundlesRegistry+HSC_CleanUp.m */; };
+		0A3DEE7E19A13EF400A14E0C /* HSCVolumeMasterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A3DEE7D19A13EF400A14E0C /* HSCVolumeMasterTests.m */; };
 		0A54248219A0BB5100445CEC /* RDInjectionWizard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A54247519A0BB2D00445CEC /* RDInjectionWizard.framework */; };
 		0A54248419A0BB6A00445CEC /* RDInjectionWizard.framework in Copy RDInjectionWizard */ = {isa = PBXBuildFile; fileRef = 0A54247519A0BB2D00445CEC /* RDInjectionWizard.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0A54248919A0C13200445CEC /* HSCVolumeMaster.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A54248719A0C13200445CEC /* HSCVolumeMaster.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0A54248A19A0C13200445CEC /* HSCVolumeMaster.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A54248819A0C13200445CEC /* HSCVolumeMaster.m */; };
+		0A54249219A0C46C00445CEC /* HSCUnicornsPayload.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A54249119A0C46C00445CEC /* HSCUnicornsPayload.h */; };
+		0A54249419A0C46C00445CEC /* HSCUnicornsPayload.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A54249319A0C46C00445CEC /* HSCUnicornsPayload.m */; };
+		0A5424A619A0C4F500445CEC /* HSCUnicornsPayload.dylib in Copy payload */ = {isa = PBXBuildFile; fileRef = 0A54248F19A0C46C00445CEC /* HSCUnicornsPayload.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		0A5424AA19A0C5BE00445CEC /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A5424A919A0C5BE00445CEC /* Cocoa.framework */; };
+		0A5424AB19A0C5CD00445CEC /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A5424A919A0C5BE00445CEC /* Cocoa.framework */; };
 		0A8813B519A0BA7700C55A02 /* HSCore.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A8813B419A0BA7700C55A02 /* HSCore.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0A8813BF19A0BA7700C55A02 /* HSCoreTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A8813BE19A0BA7700C55A02 /* HSCoreTests.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		0A3DEE6F19A1044000A14E0C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0A8813A619A0BA7700C55A02 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0A3DEE4919A1041D00A14E0C;
+			remoteInfo = TestsHostApp;
+		};
+		0A3DEE7119A1044300A14E0C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0A8813A619A0BA7700C55A02 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0A3DEE4919A1041D00A14E0C;
+			remoteInfo = TestsHostApp;
+		};
 		0A54247419A0BB2D00445CEC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 0A54246B19A0BB2D00445CEC /* RDInjectionWizard.xcodeproj */;
@@ -72,6 +101,13 @@
 			remoteGlobalIDString = 0A8813AE19A0BA7700C55A02;
 			remoteInfo = HSCore;
 		};
+		0A5424A319A0C4DD00445CEC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0A8813A619A0BA7700C55A02 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0A54248E19A0C46C00445CEC;
+			remoteInfo = HSCUnicornsPayload;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -86,25 +122,70 @@
 			name = "Copy RDInjectionWizard";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		0A5424A519A0C4E200445CEC /* Copy payload */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 7;
+			files = (
+				0A5424A619A0C4F500445CEC /* HSCUnicornsPayload.dylib in Copy payload */,
+			);
+			name = "Copy payload";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0A3DEE3C19A0FFB300A14E0C /* HSCBundleModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSCBundleModel.h; sourceTree = "<group>"; };
+		0A3DEE3D19A0FFB300A14E0C /* HSCBundleModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSCBundleModel.m; sourceTree = "<group>"; };
+		0A3DEE4019A1013000A14E0C /* HSCBundlesRegistry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSCBundlesRegistry.h; sourceTree = "<group>"; };
+		0A3DEE4119A1013000A14E0C /* HSCBundlesRegistry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSCBundlesRegistry.m; sourceTree = "<group>"; };
+		0A3DEE4A19A1041D00A14E0C /* TestsHostApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TestsHostApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0A3DEE4D19A1041D00A14E0C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0A3DEE4E19A1041D00A14E0C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		0A3DEE5019A1041D00A14E0C /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		0A3DEE5119A1041D00A14E0C /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		0A3DEE5319A1041D00A14E0C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		0A3DEE5619A1041D00A14E0C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		0A3DEE7319A104F200A14E0C /* HSCBundlesRegistryTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSCBundlesRegistryTests.m; sourceTree = "<group>"; };
+		0A3DEE7A19A13E5400A14E0C /* HSCBundlesRegistry+HSC_CleanUp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "HSCBundlesRegistry+HSC_CleanUp.h"; sourceTree = "<group>"; };
+		0A3DEE7B19A13E5400A14E0C /* HSCBundlesRegistry+HSC_CleanUp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "HSCBundlesRegistry+HSC_CleanUp.m"; sourceTree = "<group>"; };
+		0A3DEE7D19A13EF400A14E0C /* HSCVolumeMasterTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSCVolumeMasterTests.m; sourceTree = "<group>"; };
 		0A54246B19A0BB2D00445CEC /* RDInjectionWizard.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RDInjectionWizard.xcodeproj; path = RDInjectionWizard/RDInjectionWizard.xcodeproj; sourceTree = "<group>"; };
 		0A54248719A0C13200445CEC /* HSCVolumeMaster.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSCVolumeMaster.h; sourceTree = "<group>"; };
 		0A54248819A0C13200445CEC /* HSCVolumeMaster.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSCVolumeMaster.m; sourceTree = "<group>"; };
+		0A54248F19A0C46C00445CEC /* HSCUnicornsPayload.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = HSCUnicornsPayload.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
+		0A54249119A0C46C00445CEC /* HSCUnicornsPayload.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSCUnicornsPayload.h; sourceTree = "<group>"; };
+		0A54249319A0C46C00445CEC /* HSCUnicornsPayload.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HSCUnicornsPayload.m; sourceTree = "<group>"; };
+		0A5424A919A0C5BE00445CEC /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		0A8813AF19A0BA7700C55A02 /* HSCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HSCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A8813B319A0BA7700C55A02 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0A8813B419A0BA7700C55A02 /* HSCore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSCore.h; sourceTree = "<group>"; };
 		0A8813BA19A0BA7700C55A02 /* HSCoreTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HSCoreTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A8813BD19A0BA7700C55A02 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		0A8813BE19A0BA7700C55A02 /* HSCoreTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HSCoreTests.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		0A3DEE4719A1041D00A14E0C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0A54248C19A0C46C00445CEC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0A5424AA19A0C5BE00445CEC /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		0A8813AB19A0BA7700C55A02 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0A5424AB19A0C5CD00445CEC /* Cocoa.framework in Frameworks */,
 				0A54248219A0BB5100445CEC /* RDInjectionWizard.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -119,6 +200,39 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0A3DEE4419A1027D00A14E0C /* Registry */ = {
+			isa = PBXGroup;
+			children = (
+				0A3DEE3C19A0FFB300A14E0C /* HSCBundleModel.h */,
+				0A3DEE3D19A0FFB300A14E0C /* HSCBundleModel.m */,
+				0A3DEE4019A1013000A14E0C /* HSCBundlesRegistry.h */,
+				0A3DEE4119A1013000A14E0C /* HSCBundlesRegistry.m */,
+			);
+			name = Registry;
+			sourceTree = "<group>";
+		};
+		0A3DEE4B19A1041D00A14E0C /* Host */ = {
+			isa = PBXGroup;
+			children = (
+				0A3DEE5019A1041D00A14E0C /* AppDelegate.h */,
+				0A3DEE5119A1041D00A14E0C /* AppDelegate.m */,
+				0A3DEE5319A1041D00A14E0C /* Images.xcassets */,
+				0A3DEE5519A1041D00A14E0C /* MainMenu.xib */,
+				0A3DEE4C19A1041D00A14E0C /* Supporting Files */,
+			);
+			name = Host;
+			path = ../TestsHostApp;
+			sourceTree = "<group>";
+		};
+		0A3DEE4C19A1041D00A14E0C /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				0A3DEE4D19A1041D00A14E0C /* Info.plist */,
+				0A3DEE4E19A1041D00A14E0C /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		0A54246C19A0BB2D00445CEC /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -132,12 +246,31 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		0A54249019A0C46C00445CEC /* HSCUnicornsPayload */ = {
+			isa = PBXGroup;
+			children = (
+				0A54249119A0C46C00445CEC /* HSCUnicornsPayload.h */,
+				0A54249319A0C46C00445CEC /* HSCUnicornsPayload.m */,
+			);
+			path = HSCUnicornsPayload;
+			sourceTree = "<group>";
+		};
+		0A5424AC19A0C5D100445CEC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				0A5424A919A0C5BE00445CEC /* Cocoa.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		0A8813A519A0BA7700C55A02 = {
 			isa = PBXGroup;
 			children = (
 				0A54246B19A0BB2D00445CEC /* RDInjectionWizard.xcodeproj */,
 				0A8813B119A0BA7700C55A02 /* HSCore */,
+				0A54249019A0C46C00445CEC /* HSCUnicornsPayload */,
 				0A8813BB19A0BA7700C55A02 /* Tests */,
+				0A5424AC19A0C5D100445CEC /* Frameworks */,
 				0A8813B019A0BA7700C55A02 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -147,6 +280,8 @@
 			children = (
 				0A8813AF19A0BA7700C55A02 /* HSCore.framework */,
 				0A8813BA19A0BA7700C55A02 /* HSCoreTests.xctest */,
+				0A54248F19A0C46C00445CEC /* HSCUnicornsPayload.dylib */,
+				0A3DEE4A19A1041D00A14E0C /* TestsHostApp.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -157,6 +292,7 @@
 				0A8813B419A0BA7700C55A02 /* HSCore.h */,
 				0A54248719A0C13200445CEC /* HSCVolumeMaster.h */,
 				0A54248819A0C13200445CEC /* HSCVolumeMaster.m */,
+				0A3DEE4419A1027D00A14E0C /* Registry */,
 				0A8813B219A0BA7700C55A02 /* Supporting Files */,
 			);
 			path = HSCore;
@@ -173,7 +309,11 @@
 		0A8813BB19A0BA7700C55A02 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				0A8813BE19A0BA7700C55A02 /* HSCoreTests.m */,
+				0A3DEE7319A104F200A14E0C /* HSCBundlesRegistryTests.m */,
+				0A3DEE7D19A13EF400A14E0C /* HSCVolumeMasterTests.m */,
+				0A3DEE7A19A13E5400A14E0C /* HSCBundlesRegistry+HSC_CleanUp.h */,
+				0A3DEE7B19A13E5400A14E0C /* HSCBundlesRegistry+HSC_CleanUp.m */,
+				0A3DEE4B19A1041D00A14E0C /* Host */,
 				0A8813BC19A0BA7700C55A02 /* Supporting Files */,
 			);
 			name = Tests;
@@ -191,18 +331,62 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
+		0A54248D19A0C46C00445CEC /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0A54249219A0C46C00445CEC /* HSCUnicornsPayload.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		0A8813AC19A0BA7700C55A02 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				0A8813B519A0BA7700C55A02 /* HSCore.h in Headers */,
 				0A54248919A0C13200445CEC /* HSCVolumeMaster.h in Headers */,
+				0A3DEE4219A1013000A14E0C /* HSCBundlesRegistry.h in Headers */,
+				0A3DEE3E19A0FFB300A14E0C /* HSCBundleModel.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		0A3DEE4919A1041D00A14E0C /* TestsHostApp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0A3DEE6D19A1041D00A14E0C /* Build configuration list for PBXNativeTarget "TestsHostApp" */;
+			buildPhases = (
+				0A3DEE4619A1041D00A14E0C /* Sources */,
+				0A3DEE4719A1041D00A14E0C /* Frameworks */,
+				0A3DEE4819A1041D00A14E0C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TestsHostApp;
+			productName = TestsHostApp;
+			productReference = 0A3DEE4A19A1041D00A14E0C /* TestsHostApp.app */;
+			productType = "com.apple.product-type.application";
+		};
+		0A54248E19A0C46C00445CEC /* HSCUnicornsPayload */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0A54249D19A0C46C00445CEC /* Build configuration list for PBXNativeTarget "HSCUnicornsPayload" */;
+			buildPhases = (
+				0A54248B19A0C46C00445CEC /* Sources */,
+				0A54248C19A0C46C00445CEC /* Frameworks */,
+				0A54248D19A0C46C00445CEC /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = HSCUnicornsPayload;
+			productName = HSCUnicornsPayload;
+			productReference = 0A54248F19A0C46C00445CEC /* HSCUnicornsPayload.dylib */;
+			productType = "com.apple.product-type.library.dynamic";
+		};
 		0A8813AE19A0BA7700C55A02 /* HSCore */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0A8813C219A0BA7700C55A02 /* Build configuration list for PBXNativeTarget "HSCore" */;
@@ -212,11 +396,13 @@
 				0A8813AC19A0BA7700C55A02 /* Headers */,
 				0A8813AD19A0BA7700C55A02 /* Resources */,
 				0A54248319A0BB5C00445CEC /* Copy RDInjectionWizard */,
+				0A5424A519A0C4E200445CEC /* Copy payload */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				0A54248119A0BB4400445CEC /* PBXTargetDependency */,
+				0A5424A419A0C4DD00445CEC /* PBXTargetDependency */,
 			);
 			name = HSCore;
 			productName = HSCore;
@@ -235,6 +421,8 @@
 			);
 			dependencies = (
 				0A54248619A0BE0B00445CEC /* PBXTargetDependency */,
+				0A3DEE7019A1044000A14E0C /* PBXTargetDependency */,
+				0A3DEE7219A1044300A14E0C /* PBXTargetDependency */,
 			);
 			name = HSCoreTests;
 			productName = HSCoreTests;
@@ -251,11 +439,18 @@
 				LastUpgradeCheck = 0600;
 				ORGANIZATIONNAME = honeysound;
 				TargetAttributes = {
+					0A3DEE4919A1041D00A14E0C = {
+						CreatedOnToolsVersion = 6.0;
+					};
+					0A54248E19A0C46C00445CEC = {
+						CreatedOnToolsVersion = 6.0;
+					};
 					0A8813AE19A0BA7700C55A02 = {
 						CreatedOnToolsVersion = 6.0;
 					};
 					0A8813B919A0BA7700C55A02 = {
 						CreatedOnToolsVersion = 6.0;
+						TestTargetID = 0A3DEE4919A1041D00A14E0C;
 					};
 				};
 			};
@@ -265,6 +460,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = 0A8813A519A0BA7700C55A02;
 			productRefGroup = 0A8813B019A0BA7700C55A02 /* Products */;
@@ -279,6 +475,8 @@
 			targets = (
 				0A8813AE19A0BA7700C55A02 /* HSCore */,
 				0A8813B919A0BA7700C55A02 /* HSCoreTests */,
+				0A54248E19A0C46C00445CEC /* HSCUnicornsPayload */,
+				0A3DEE4919A1041D00A14E0C /* TestsHostApp */,
 			);
 		};
 /* End PBXProject section */
@@ -329,6 +527,15 @@
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
+		0A3DEE4819A1041D00A14E0C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0A3DEE5419A1041D00A14E0C /* Images.xcassets in Resources */,
+				0A3DEE5719A1041D00A14E0C /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		0A8813AD19A0BA7700C55A02 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -346,10 +553,29 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		0A3DEE4619A1041D00A14E0C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0A3DEE5219A1041D00A14E0C /* AppDelegate.m in Sources */,
+				0A3DEE4F19A1041D00A14E0C /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0A54248B19A0C46C00445CEC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0A54249419A0C46C00445CEC /* HSCUnicornsPayload.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		0A8813AA19A0BA7700C55A02 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0A3DEE4319A1013000A14E0C /* HSCBundlesRegistry.m in Sources */,
+				0A3DEE3F19A0FFB300A14E0C /* HSCBundleModel.m in Sources */,
 				0A54248A19A0C13200445CEC /* HSCVolumeMaster.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -358,13 +584,25 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0A8813BF19A0BA7700C55A02 /* HSCoreTests.m in Sources */,
+				0A3DEE7C19A13E5400A14E0C /* HSCBundlesRegistry+HSC_CleanUp.m in Sources */,
+				0A3DEE7419A104F200A14E0C /* HSCBundlesRegistryTests.m in Sources */,
+				0A3DEE7E19A13EF400A14E0C /* HSCVolumeMasterTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		0A3DEE7019A1044000A14E0C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0A3DEE4919A1041D00A14E0C /* TestsHostApp */;
+			targetProxy = 0A3DEE6F19A1044000A14E0C /* PBXContainerItemProxy */;
+		};
+		0A3DEE7219A1044300A14E0C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0A3DEE4919A1041D00A14E0C /* TestsHostApp */;
+			targetProxy = 0A3DEE7119A1044300A14E0C /* PBXContainerItemProxy */;
+		};
 		0A54248119A0BB4400445CEC /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = RDInjectionWizard;
@@ -375,9 +613,77 @@
 			target = 0A8813AE19A0BA7700C55A02 /* HSCore */;
 			targetProxy = 0A54248519A0BE0B00445CEC /* PBXContainerItemProxy */;
 		};
+		0A5424A419A0C4DD00445CEC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0A54248E19A0C46C00445CEC /* HSCUnicornsPayload */;
+			targetProxy = 0A5424A319A0C4DD00445CEC /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
+/* Begin PBXVariantGroup section */
+		0A3DEE5519A1041D00A14E0C /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0A3DEE5619A1041D00A14E0C /* Base */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
 /* Begin XCBuildConfiguration section */
+		0A3DEE6419A1041D00A14E0C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = TestsHostApp/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		0A3DEE6519A1041D00A14E0C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = TestsHostApp/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		0A54249E19A0C46C00445CEC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				EXECUTABLE_PREFIX = "";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		0A54249F19A0C46C00445CEC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				EXECUTABLE_PREFIX = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		0A8813C019A0BA7700C55A02 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -499,6 +805,7 @@
 		0A8813C619A0BA7700C55A02 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
@@ -511,12 +818,14 @@
 				INFOPLIST_FILE = HSCoreTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TestsHostApp.app/Contents/MacOS/TestsHostApp";
 			};
 			name = Debug;
 		};
 		0A8813C719A0BA7700C55A02 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
@@ -525,12 +834,30 @@
 				INFOPLIST_FILE = HSCoreTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TestsHostApp.app/Contents/MacOS/TestsHostApp";
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		0A3DEE6D19A1041D00A14E0C /* Build configuration list for PBXNativeTarget "TestsHostApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0A3DEE6419A1041D00A14E0C /* Debug */,
+				0A3DEE6519A1041D00A14E0C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		0A54249D19A0C46C00445CEC /* Build configuration list for PBXNativeTarget "HSCUnicornsPayload" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0A54249E19A0C46C00445CEC /* Debug */,
+				0A54249F19A0C46C00445CEC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		0A8813A919A0BA7700C55A02 /* Build configuration list for PBXProject "HSCore" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

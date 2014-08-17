@@ -8,9 +8,16 @@
 
 #import <Foundation/Foundation.h>
 
+typedef void (^HSCVolumeChangeCallback)(BOOL succeeded);
+
 @interface HSCVolumeMaster : NSObject
 
-- (void)setVolumeLevel: (CGFloat)level forBundle: (NSString *)bundleID callback: (id)callback;
++ (instancetype)sharedMaster;
+
+- (void)setVolumeLevel: (CGFloat)level
+             forBundle: (NSString *)bundleID
+              callback: (HSCVolumeChangeCallback)callback;
+
 // Increase volume level by 10%
 - (void)increaseVolumeLevelForBundle: (NSString *)bundleID;
 // Decrease volume level by 10%
