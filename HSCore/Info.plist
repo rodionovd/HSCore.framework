@@ -7,7 +7,7 @@
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
-	<string>me.rodionovd.$(PRODUCT_NAME:rfc1034identifier)</string>
+	<string>com.honeysound.$(PRODUCT_NAME:rfc1034identifier)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
@@ -21,7 +21,7 @@
 	<key>CFBundleVersion</key>
 	<string>1</string>
 	<key>NSHumanReadableCopyright</key>
-	<string>Copyright © 2014 rodionovd. All rights reserved.</string>
+	<string>Copyright © 2014 HoneySound. All rights reserved.</string>
 	<key>NSPrincipalClass</key>
 	<string></string>
 </dict>
