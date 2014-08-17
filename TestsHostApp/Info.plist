@@ -30,5 +30,10 @@
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
+	<key>SMPrivilegedExecutables</key>
+	<dict>
+		<key>me.rodionovd.RDInjectionWizard.injector</key>
+		<string>certificate leaf[subject.CN]</string>
+	</dict>
 </dict>
 </plist>
