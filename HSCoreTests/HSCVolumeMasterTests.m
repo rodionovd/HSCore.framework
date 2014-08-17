@@ -3,7 +3,7 @@
 //  HSCore
 //
 //  Created by Dmitry Rodionov on 8/18/14.
-//  Copyright (c) 2014 honeysound. All rights reserved.
+//  Copyright (c) 2014 HoneySound. All rights reserved.
 //
 
 #import <Cocoa/Cocoa.h>

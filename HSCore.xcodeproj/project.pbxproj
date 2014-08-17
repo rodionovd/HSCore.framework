@@ -437,7 +437,7 @@
 			attributes = {
 				CLASSPREFIX = HSC;
 				LastUpgradeCheck = 0600;
-				ORGANIZATIONNAME = honeysound;
+				ORGANIZATIONNAME = HoneySound;
 				TargetAttributes = {
 					0A3DEE4919A1041D00A14E0C = {
 						CreatedOnToolsVersion = 6.0;
