@@ -1,0 +1,555 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0A54248219A0BB5100445CEC /* RDInjectionWizard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A54247519A0BB2D00445CEC /* RDInjectionWizard.framework */; };
+		0A54248419A0BB6A00445CEC /* RDInjectionWizard.framework in Copy RDInjectionWizard */ = {isa = PBXBuildFile; fileRef = 0A54247519A0BB2D00445CEC /* RDInjectionWizard.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		0A8813B519A0BA7700C55A02 /* HSCore.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A8813B419A0BA7700C55A02 /* HSCore.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		0A8813BF19A0BA7700C55A02 /* HSCoreTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A8813BE19A0BA7700C55A02 /* HSCoreTests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		0A54247419A0BB2D00445CEC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0A54246B19A0BB2D00445CEC /* RDInjectionWizard.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 0A2E228A197170BF00255B00;
+			remoteInfo = RDInjectionWizard;
+		};
+		0A54247619A0BB2D00445CEC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0A54246B19A0BB2D00445CEC /* RDInjectionWizard.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 0AFEB8401972876B00BE2968;
+			remoteInfo = injector;
+		};
+		0A54247819A0BB2D00445CEC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0A54246B19A0BB2D00445CEC /* RDInjectionWizard.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 0A2E22A1197170BF00255B00;
+			remoteInfo = RDInjectionWizardTests;
+		};
+		0A54247A19A0BB2D00445CEC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0A54246B19A0BB2D00445CEC /* RDInjectionWizard.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 0A8D0F5C197176950075B0E2;
+			remoteInfo = RDInjectionWizardTestsHost;
+		};
+		0A54247C19A0BB2D00445CEC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0A54246B19A0BB2D00445CEC /* RDInjectionWizard.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 0AAEE16319742203008C231A;
+			remoteInfo = libtestnoop64;
+		};
+		0A54247E19A0BB2D00445CEC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0A54246B19A0BB2D00445CEC /* RDInjectionWizard.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 0AAEE1BD19743F95008C231A;
+			remoteInfo = demoTarget64;
+		};
+		0A54248019A0BB4400445CEC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0A54246B19A0BB2D00445CEC /* RDInjectionWizard.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 0A2E2289197170BF00255B00;
+			remoteInfo = RDInjectionWizard;
+		};
+		0A54248519A0BE0B00445CEC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0A8813A619A0BA7700C55A02 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0A8813AE19A0BA7700C55A02;
+			remoteInfo = HSCore;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		0A54248319A0BB5C00445CEC /* Copy RDInjectionWizard */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				0A54248419A0BB6A00445CEC /* RDInjectionWizard.framework in Copy RDInjectionWizard */,
+			);
+			name = "Copy RDInjectionWizard";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		0A54246B19A0BB2D00445CEC /* RDInjectionWizard.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RDInjectionWizard.xcodeproj; path = RDInjectionWizard/RDInjectionWizard.xcodeproj; sourceTree = "<group>"; };
+		0A8813AF19A0BA7700C55A02 /* HSCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HSCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		0A8813B319A0BA7700C55A02 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0A8813B419A0BA7700C55A02 /* HSCore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSCore.h; sourceTree = "<group>"; };
+		0A8813BA19A0BA7700C55A02 /* HSCoreTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HSCoreTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		0A8813BD19A0BA7700C55A02 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0A8813BE19A0BA7700C55A02 /* HSCoreTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HSCoreTests.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		0A8813AB19A0BA7700C55A02 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0A54248219A0BB5100445CEC /* RDInjectionWizard.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0A8813B719A0BA7700C55A02 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0A54246C19A0BB2D00445CEC /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				0A54247519A0BB2D00445CEC /* RDInjectionWizard.framework */,
+				0A54247719A0BB2D00445CEC /* me.rodionovd.RDInjectionWizard.injector */,
+				0A54247919A0BB2D00445CEC /* RDInjectionWizardTests.xctest */,
+				0A54247B19A0BB2D00445CEC /* RDInjectionWizardTestsHost.app */,
+				0A54247D19A0BB2D00445CEC /* libtestnoop64.dylib */,
+				0A54247F19A0BB2D00445CEC /* demoTarget64.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		0A8813A519A0BA7700C55A02 = {
+			isa = PBXGroup;
+			children = (
+				0A54246B19A0BB2D00445CEC /* RDInjectionWizard.xcodeproj */,
+				0A8813B119A0BA7700C55A02 /* HSCore */,
+				0A8813BB19A0BA7700C55A02 /* Tests */,
+				0A8813B019A0BA7700C55A02 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		0A8813B019A0BA7700C55A02 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				0A8813AF19A0BA7700C55A02 /* HSCore.framework */,
+				0A8813BA19A0BA7700C55A02 /* HSCoreTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		0A8813B119A0BA7700C55A02 /* HSCore */ = {
+			isa = PBXGroup;
+			children = (
+				0A8813B419A0BA7700C55A02 /* HSCore.h */,
+				0A8813B219A0BA7700C55A02 /* Supporting Files */,
+			);
+			path = HSCore;
+			sourceTree = "<group>";
+		};
+		0A8813B219A0BA7700C55A02 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				0A8813B319A0BA7700C55A02 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		0A8813BB19A0BA7700C55A02 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				0A8813BE19A0BA7700C55A02 /* HSCoreTests.m */,
+				0A8813BC19A0BA7700C55A02 /* Supporting Files */,
+			);
+			name = Tests;
+			path = HSCoreTests;
+			sourceTree = "<group>";
+		};
+		0A8813BC19A0BA7700C55A02 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				0A8813BD19A0BA7700C55A02 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		0A8813AC19A0BA7700C55A02 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0A8813B519A0BA7700C55A02 /* HSCore.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		0A8813AE19A0BA7700C55A02 /* HSCore */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0A8813C219A0BA7700C55A02 /* Build configuration list for PBXNativeTarget "HSCore" */;
+			buildPhases = (
+				0A8813AA19A0BA7700C55A02 /* Sources */,
+				0A8813AB19A0BA7700C55A02 /* Frameworks */,
+				0A8813AC19A0BA7700C55A02 /* Headers */,
+				0A8813AD19A0BA7700C55A02 /* Resources */,
+				0A54248319A0BB5C00445CEC /* Copy RDInjectionWizard */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				0A54248119A0BB4400445CEC /* PBXTargetDependency */,
+			);
+			name = HSCore;
+			productName = HSCore;
+			productReference = 0A8813AF19A0BA7700C55A02 /* HSCore.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		0A8813B919A0BA7700C55A02 /* HSCoreTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0A8813C519A0BA7700C55A02 /* Build configuration list for PBXNativeTarget "HSCoreTests" */;
+			buildPhases = (
+				0A8813B619A0BA7700C55A02 /* Sources */,
+				0A8813B719A0BA7700C55A02 /* Frameworks */,
+				0A8813B819A0BA7700C55A02 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				0A54248619A0BE0B00445CEC /* PBXTargetDependency */,
+			);
+			name = HSCoreTests;
+			productName = HSCoreTests;
+			productReference = 0A8813BA19A0BA7700C55A02 /* HSCoreTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		0A8813A619A0BA7700C55A02 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0600;
+				ORGANIZATIONNAME = rodionovd;
+				TargetAttributes = {
+					0A8813AE19A0BA7700C55A02 = {
+						CreatedOnToolsVersion = 6.0;
+					};
+					0A8813B919A0BA7700C55A02 = {
+						CreatedOnToolsVersion = 6.0;
+					};
+				};
+			};
+			buildConfigurationList = 0A8813A919A0BA7700C55A02 /* Build configuration list for PBXProject "HSCore" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 0A8813A519A0BA7700C55A02;
+			productRefGroup = 0A8813B019A0BA7700C55A02 /* Products */;
+			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 0A54246C19A0BB2D00445CEC /* Products */;
+					ProjectRef = 0A54246B19A0BB2D00445CEC /* RDInjectionWizard.xcodeproj */;
+				},
+			);
+			projectRoot = "";
+			targets = (
+				0A8813AE19A0BA7700C55A02 /* HSCore */,
+				0A8813B919A0BA7700C55A02 /* HSCoreTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		0A54247519A0BB2D00445CEC /* RDInjectionWizard.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = RDInjectionWizard.framework;
+			remoteRef = 0A54247419A0BB2D00445CEC /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		0A54247719A0BB2D00445CEC /* me.rodionovd.RDInjectionWizard.injector */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.executable";
+			path = me.rodionovd.RDInjectionWizard.injector;
+			remoteRef = 0A54247619A0BB2D00445CEC /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		0A54247919A0BB2D00445CEC /* RDInjectionWizardTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = RDInjectionWizardTests.xctest;
+			remoteRef = 0A54247819A0BB2D00445CEC /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		0A54247B19A0BB2D00445CEC /* RDInjectionWizardTestsHost.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = RDInjectionWizardTestsHost.app;
+			remoteRef = 0A54247A19A0BB2D00445CEC /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		0A54247D19A0BB2D00445CEC /* libtestnoop64.dylib */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.dylib";
+			path = libtestnoop64.dylib;
+			remoteRef = 0A54247C19A0BB2D00445CEC /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		0A54247F19A0BB2D00445CEC /* demoTarget64.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = demoTarget64.app;
+			remoteRef = 0A54247E19A0BB2D00445CEC /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
+/* Begin PBXResourcesBuildPhase section */
+		0A8813AD19A0BA7700C55A02 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0A8813B819A0BA7700C55A02 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		0A8813AA19A0BA7700C55A02 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0A8813B619A0BA7700C55A02 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0A8813BF19A0BA7700C55A02 /* HSCoreTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		0A54248119A0BB4400445CEC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = RDInjectionWizard;
+			targetProxy = 0A54248019A0BB4400445CEC /* PBXContainerItemProxy */;
+		};
+		0A54248619A0BE0B00445CEC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0A8813AE19A0BA7700C55A02 /* HSCore */;
+			targetProxy = 0A54248519A0BE0B00445CEC /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		0A8813C019A0BA7700C55A02 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = rodionovd;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		0A8813C119A0BA7700C55A02 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = rodionovd;
+				COPY_PHASE_STRIP = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		0A8813C319A0BA7700C55A02 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = HSCore/Info.plist;
+				INSTALL_PATH = "@executable_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		0A8813C419A0BA7700C55A02 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = HSCore/Info.plist;
+				INSTALL_PATH = "@executable_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		0A8813C619A0BA7700C55A02 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = HSCoreTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		0A8813C719A0BA7700C55A02 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = HSCoreTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		0A8813A919A0BA7700C55A02 /* Build configuration list for PBXProject "HSCore" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0A8813C019A0BA7700C55A02 /* Debug */,
+				0A8813C119A0BA7700C55A02 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0A8813C219A0BA7700C55A02 /* Build configuration list for PBXNativeTarget "HSCore" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0A8813C319A0BA7700C55A02 /* Debug */,
+				0A8813C419A0BA7700C55A02 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0A8813C519A0BA7700C55A02 /* Build configuration list for PBXNativeTarget "HSCoreTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0A8813C619A0BA7700C55A02 /* Debug */,
+				0A8813C719A0BA7700C55A02 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 0A8813A619A0BA7700C55A02 /* Project object */;
+}

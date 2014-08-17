@@ -1,0 +1,3 @@
+[submodule "RDInjectionWizard"]
+	path = RDInjectionWizard
+	url = https://github.com/rodionovd/RDInjectionWizard.git
