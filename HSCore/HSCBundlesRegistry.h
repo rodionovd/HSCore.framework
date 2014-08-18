@@ -11,7 +11,6 @@
 #define kHSCInvalidVolumeLevel (-1)
 
 @interface HSCBundlesRegistry : NSObject
-@property (readonly, copy) NSArray *items;  // array of HSCBundleModel
 
 // supports saving items to User Defaults
 + (instancetype)defaultRegistry;
@@ -21,6 +20,7 @@
 - (void)removeBundle: (NSString *)bundleID;
 
 - (BOOL)containsBundle: (NSString *)bundleID;
+- (NSArray *)registeredBundles;
 
 - (CGFloat)volumeLevelForBundle: (NSString *)bundleID;
 - (void)setVolumeLevel: (CGFloat)volume forBundleAtIndex: (NSUInteger)idx;

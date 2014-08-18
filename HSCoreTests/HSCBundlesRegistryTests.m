@@ -44,11 +44,11 @@
         [self.registry addBundle: item];
     }];
     //then
-    XCTAssert(self.registry.items.count == 2);
-    XCTAssertEqualObjects([self.registry.items[0] bundleID], bundleIDs[0], @"First item bundleID mismatch");
-    XCTAssertEqual([(HSCBundleModel *)self.registry.items[0] volume], 1.0f);
-    XCTAssertEqualObjects([self.registry.items[1] bundleID], bundleIDs[1], @"Second item bundleID mismatch");
-    XCTAssertEqual([(HSCBundleModel *)self.registry.items[1] volume], 1.0f);
+    XCTAssert([self.registry registeredBundles].count == 2);
+    XCTAssertEqualObjects([self.registry registeredBundles][0], bundleIDs[0], @"First item bundleID mismatch");
+    XCTAssertEqualObjects([self.registry registeredBundles][1], bundleIDs[1], @"Second item bundleID mismatch");
+    XCTAssertEqual([self.registry volumeLevelForBundle: bundleIDs[0]], 1.0f);
+    XCTAssertEqual([self.registry volumeLevelForBundle: bundleIDs[1]], 1.0f);
 }
 
 - (void)testAddingItemsFromArrayToRegistry
@@ -58,11 +58,11 @@
     // when
     [self.registry addBundles: bundleIDs];
     //then
-    XCTAssert(self.registry.items.count == 2);
-    XCTAssertEqualObjects([self.registry.items[0] bundleID], bundleIDs[0], @"First item bundleID mismatch");
-    XCTAssertEqual([(HSCBundleModel *)self.registry.items[0] volume], 1.0f);
-    XCTAssertEqualObjects([self.registry.items[1] bundleID], bundleIDs[1], @"Second item bundleID mismatch");
-    XCTAssertEqual([(HSCBundleModel *)self.registry.items[1] volume], 1.0f);
+    XCTAssert([self.registry registeredBundles].count == 2);
+    XCTAssertEqualObjects([self.registry registeredBundles][0], bundleIDs[0], @"First item bundleID mismatch");
+    XCTAssertEqualObjects([self.registry registeredBundles][1], bundleIDs[1], @"Second item bundleID mismatch");
+    XCTAssertEqual([self.registry volumeLevelForBundle: bundleIDs[0]], 1.0f);
+    XCTAssertEqual([self.registry volumeLevelForBundle: bundleIDs[1]], 1.0f);
 }
 
 - (void)testRemovingItemFromRegistry
@@ -73,8 +73,9 @@
     [self.registry addBundles: bundleIDs];
     [self.registry removeBundle: bundleIDs[0]];
     // then
-    XCTAssert(self.registry.items.count == 1);
-    XCTAssertEqualObjects([self.registry.items[0] bundleID], bundleIDs[1], @"Second bundleID should be the first and only one");
+    XCTAssert([self.registry registeredBundles].count == 1);
+    XCTAssertEqualObjects([self.registry registeredBundles][0], bundleIDs[1],
+                          @"Second bundleID should be the first and only one");
 }
 
 - (void)testRegistryContainsItem
@@ -85,6 +86,17 @@
     [self.registry addBundles: bundleIDs];
     // then
     XCTAssertEqual([self.registry containsBundle: bundleIDs[1]], YES);
+}
+
+- (void)testRegisteredBundlesList
+{
+    // given
+    NSArray *bundleIDs = @[@"first.bundle.id", @"second.bundle.id"];
+    // when
+    [self.registry addBundles: bundleIDs];
+    NSArray *registeredBundles = [self.registry registeredBundles];
+    // then
+    XCTAssert([bundleIDs isEqualToArray: registeredBundles]);
 }
 
 - (void)testGetInitialVolumeLevelForModelFromRegistry
@@ -133,7 +145,7 @@
     [self.registry addBundles: bundleIDs];
     [self.registry setVolumeLevel: testVolumeLevel forBundleAtIndex: 1];
     // then
-    XCTAssertEqual([(HSCBundleModel *)self.registry.items[1] volume], testVolumeLevel);
+    XCTAssertEqual([self.registry volumeLevelForBundle: bundleIDs[1]], testVolumeLevel);
 }
 
 - (void)testSaveRegistryItemsToUserDefaults
@@ -150,7 +162,7 @@
     XCTAssert([[defaults objectForKey: kHSCRegistryItemsKey] isKindOfClass: NSArray.class],
                    @"Saved items should be kind of NSArray");
     XCTAssertEqual([[defaults objectForKey: kHSCRegistryItemsKey] count],
-                   self.registry.items.count, @"Some items were lost during saving");
+                   [self.registry registeredBundles].count, @"Some items were lost during saving");
 }
 
 - (void)testReadRegistryItemsFromUserDefaults
@@ -169,9 +181,9 @@
     XCTAssert([[defaults objectForKey: kHSCRegistryItemsKey] isKindOfClass: NSArray.class],
               @"Saved items should be kind of NSArray");
     XCTAssertEqual([[defaults objectForKey: kHSCRegistryItemsKey] count],
-                   self.registry.items.count,
+                   [self.registry registeredBundles].count,
                    @"Some items were lost during saving");
-    XCTAssertEqualObjects([self.registry.items[0] bundleID], bundleIDs[0],
+    XCTAssertEqualObjects([self.registry registeredBundles][0], bundleIDs[0],
                           @"Items ware not load properly");
 }
 

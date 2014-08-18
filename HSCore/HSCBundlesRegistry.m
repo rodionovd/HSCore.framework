@@ -13,7 +13,7 @@ static char * const kHSCUserDefaultsQueueLabel = "com.HoneySound.HSCore.HSCBundl
 static NSString * const kHSCRegistryItemsKey = @"kHSCRegistryItemsKey";
 
 @interface HSCBundlesRegistry()
-@property (readwrite) NSMutableArray *items;
+@property (copy) NSMutableArray *items;
 @property (strong) NSLock *itemsAccessLock;
 @property (strong) dispatch_queue_t userDefaultsQueue;
 
@@ -92,6 +92,23 @@ static NSString * const kHSCRegistryItemsKey = @"kHSCRegistryItemsKey";
     [self.itemsAccessLock unlock];
 
     return (idx != NSNotFound);
+}
+
+- (NSArray *)registeredBundles
+{
+    [self.itemsAccessLock lock];
+    NSUInteger count = self.items.count;
+    if (count == 0) {
+        [self.itemsAccessLock unlock];
+        return @[];
+    }
+    NSMutableArray *result = [NSMutableArray arrayWithCapacity: count];
+    [self.items enumerateObjectsUsingBlock: ^(HSCBundleModel *model, NSUInteger idx, BOOL *stop) {
+        [result addObject: model.bundleID];
+    }];
+    [self.itemsAccessLock unlock];
+
+    return [result copy];
 }
 
 - (HSCBundleModel *)modelForBundle: (NSString *)bundleID

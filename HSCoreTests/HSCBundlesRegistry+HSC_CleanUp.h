@@ -12,6 +12,7 @@
 static NSString * const kHSCRegistryItemsKey = @"kHSCRegistryItemsKey";
 
 @interface HSCBundlesRegistry (HSC_CleanUp)
+@property (copy) NSMutableArray *items;
 - (void)_cleanupItems;
 - (void)_cleanupDefaults;
 @end

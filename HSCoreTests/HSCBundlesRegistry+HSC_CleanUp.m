@@ -9,6 +9,7 @@
 #import "HSCBundlesRegistry+HSC_CleanUp.h"
 
 @implementation HSCBundlesRegistry (HSC_CleanUp)
+@dynamic items;
 
 - (void)_cleanupItems
 {
