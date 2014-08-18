@@ -7,6 +7,7 @@
 //
 
 #import "HSCUnicornsPayload.h"
+#import "HSCSharedNotifications.h"
 
 @implementation HSCUnicornsPayload
 
