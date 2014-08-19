@@ -9,6 +9,7 @@
 #import "HSCVolumeMaster.h"
 #import "HSCBundlesRegistry.h"
 #import "HSCSharedNotifications.h"
+#import <RDInjectionWizard/RDInjectionWizard.h>
 
 #define kMaxVolumeLevel (1.0)
 #define kMaxVolumeLevelDiffToSayTheyAreDifferent (0.05)
@@ -16,16 +17,15 @@ static char * const kHSCCallbacksQueueLabel = "com.HoneySound.HSCore.HSCVolumeMa
 
 @interface HSCVolumeMaster()
 @property (strong) HSCBundlesRegistry *registry;
+@property (strong) NSLock *registryTestLock;
 @property (strong) dispatch_queue_t callbacksQueue;
 
 - (void)_initializeBundle: (NSString *)bundleID
               volumeLevel: (CGFloat)volume
-                 callback: (HSCVolumeChangeCallback)callback;
+               completion: (void(^)(BOOL succeeded))handler;
 
-- (void)_publishVolumeLevel: (CGFloat)level forBundleID: (NSString *)bundleID;
 - (void)_publishVolumeChangesForBundle: (NSString *)bundleID;
-
-- (void)_injectBundle: (NSString *)bundleID callback: (HSCVolumeChangeCallback)callback;
+- (void)_injectBundle: (NSString *)bundleID completion: (void(^)(BOOL succeeded))handler;
 @end
 
 @implementation HSCVolumeMaster
@@ -44,13 +44,14 @@ static char * const kHSCCallbacksQueueLabel = "com.HoneySound.HSCore.HSCVolumeMa
 - (instancetype)init
 {
     if ((self = [super init])) {
+        _registryTestLock = [NSLock new];
         _registry = [HSCBundlesRegistry defaultRegistry];
         _callbacksQueue = dispatch_queue_create(kHSCCallbacksQueueLabel, DISPATCH_QUEUE_CONCURRENT);
-
-        [[[NSWorkspace sharedWorkspace] notificationCenter] addObserver: self
-                                                               selector: @selector(_someApplicationDidLaunch:)
-                                                                   name: NSWorkspaceDidLaunchApplicationNotification
-                                                                 object: nil];
+        NSNotificationCenter *center = [[NSWorkspace sharedWorkspace] notificationCenter];
+        [center addObserver: self
+                   selector: @selector(_someApplicationDidLaunch:)
+                       name: NSWorkspaceDidLaunchApplicationNotification
+                     object: nil];
     }
     return self;
 }
@@ -59,36 +60,42 @@ static char * const kHSCCallbacksQueueLabel = "com.HoneySound.HSCore.HSCVolumeMa
 
 - (void)setVolumeLevel: (CGFloat)level
              forBundle: (NSString *)bundleID
-              callback: (HSCVolumeChangeCallback)callback
+            completion: (void(^)(BOOL succeeded))handler
 {
     if (bundleID.length == 0) {
         dispatch_async(self.callbacksQueue, ^{
-            if (callback) callback(NO);
+            if (handler) handler(NO);
         });
         return;
     }
     CGFloat oldLevel = [self.registry volumeLevelForBundle: bundleID];
     CGFloat newLevel = fabs(level);
     if (newLevel > kMaxVolumeLevel) {
-        // Converting [0..100] range to [0..1]
+        // Convert [0..100] range to [0..1]
         newLevel /= 100;
     }
+    [self.registryTestLock lock];
     if ([self.registry containsBundle: bundleID] == NO) {
         // perform initial inject
-        [self _initializeBundle: bundleID volumeLevel: newLevel callback: callback];
+        [self.registry addBundle: bundleID];
+        NSLog(@"Perform initial inject");
+        [self _initializeBundle: bundleID volumeLevel: newLevel completion: handler];
+        [self.registryTestLock unlock];
         return;
     }
+    [self.registryTestLock unlock];
+
     // check if current sound level != new level
     if (fabs(oldLevel - newLevel) < kMaxVolumeLevelDiffToSayTheyAreDifferent) {
         dispatch_async(self.callbacksQueue, ^{
-            if (callback) callback(YES);
+            if (handler) handler(YES);
         });
         return;
     }
     [self.registry setVolumeLevel: newLevel forBundle: bundleID];
     [self _publishVolumeChangesForBundle: bundleID];
     dispatch_async(self.callbacksQueue, ^{
-        if (callback) callback(YES);
+        if (handler) handler(YES);
     });
 }
 
@@ -122,8 +129,8 @@ static char * const kHSCCallbacksQueueLabel = "com.HoneySound.HSCore.HSCVolumeMa
     if (NO == [self.registry containsBundle: bundleID]) {
         return;
     }
-    CGFloat mutedLevel = 0.0f;
-    [self _publishVolumeLevel: mutedLevel forBundleID: bundleID];
+    [self.registry muteBundle: bundleID];
+    [self _publishVolumeChangesForBundle: bundleID];
 }
 
 - (void)unmuteBundle: (NSString *)bundleID
@@ -131,29 +138,81 @@ static char * const kHSCCallbacksQueueLabel = "com.HoneySound.HSCore.HSCVolumeMa
     if (NO == [self.registry containsBundle: bundleID]) {
         return;
     }
+    [self.registry unmuteBundle: bundleID];
     [self _publishVolumeChangesForBundle: bundleID];
 }
 
 - (CGFloat)volumeLevelForBundle: (NSString *)bundleID
 {
     if (NO == [self.registry containsBundle: bundleID]) {
-        return 0.0;
+        return kMaxVolumeLevel;
     }
     return [self.registry volumeLevelForBundle: bundleID];
 }
 
-- (void)volumeLeveslForBundles: (NSString *)bundleID callback: (id)callback
+- (NSDictionary *)volumeLevelsForBundles: (NSArray *)bundleIDs
 {
-    @throw [NSException exceptionWithName: @"Unimplemented method"
-                                   reason: @"Method is not implemented yet"
-                                 userInfo: nil];
+    NSUInteger count = bundleIDs.count;
+    if (count == 0) {
+        NSString *exceptionName = [NSString stringWithFormat: @"<%@>:<%@> Exception",
+                                   self.className,  NSStringFromSelector(_cmd)];
+        @throw [NSException exceptionWithName: exceptionName
+                                       reason: @"Parameter `bundleIDs` should be neither nil nor empty"
+                                     userInfo: nil];
+        return nil;
+    }
+
+    NSMutableDictionary *result = [NSMutableDictionary dictionaryWithCapacity: count];
+    [bundleIDs enumerateObjectsUsingBlock: ^(NSString *item, NSUInteger idx, BOOL *stop) {
+        if ([self.registry containsBundle: item]) {
+            [result setObject: @([self.registry volumeLevelForBundle: item])
+                       forKey: item];
+        }
+    }];
+
+    return [result copy];
 }
 
-- (void)setVolumeLevelsForBundles: (NSDictionary *)params callback: (id)callback
+- (void)setVolumeLevelsForBundles: (NSDictionary *)bundlesInformation
+                       completion: (void(^)(void))handler
+                          failure: (void(^)(NSArray *failedBundles))failure
 {
-    @throw [NSException exceptionWithName: @"Unimplemented method"
-                                   reason: @"Method is not implemented yet"
-                                 userInfo: nil];
+    NSUInteger count = bundlesInformation.count;
+    if (count == 0) {
+        NSString *exceptionName = [NSString stringWithFormat: @"<%@>:<%@> Exception",
+                                   self.className,  NSStringFromSelector(_cmd)];
+        @throw [NSException exceptionWithName: exceptionName
+                                       reason: @"Parameter `bundlesInformation` should be neither nil nor empty"
+                                     userInfo: nil];
+        return;
+    }
+
+    dispatch_group_t group = dispatch_group_create();
+    dispatch_queue_t queue = dispatch_queue_create(NULL, DISPATCH_QUEUE_CONCURRENT);
+
+    NSMutableArray *failes = [NSMutableArray arrayWithCapacity: count];
+    NSArray *bundles = bundlesInformation.allKeys;
+    [bundles enumerateObjectsUsingBlock: ^(NSString *item, NSUInteger idx, BOOL *stop) {
+        dispatch_group_wait(group, DISPATCH_TIME_FOREVER);
+        dispatch_group_enter(group);
+        dispatch_group_async(group, queue, ^{
+            [self setVolumeLevel: [bundlesInformation[item] doubleValue] forBundle: item completion: ^(BOOL succeeded) {
+                if (!succeeded) {
+                    [failes addObject: item];
+                }
+                dispatch_group_leave(group);
+            }];
+        });
+    }];
+    dispatch_group_notify(group, queue, ^{
+        dispatch_async(self.callbacksQueue, ^{
+            if (failes.count == 0) {
+                if (handler) handler();
+            } else {
+                if (failure) failure(failes);
+            }
+        });
+    });
 }
 
 - (void)revertVolumeChangesForBundle: (NSString *)bundleID
@@ -163,9 +222,7 @@ static char * const kHSCCallbacksQueueLabel = "com.HoneySound.HSCore.HSCVolumeMa
     }
     CGFloat originalVolumeLevel = kMaxVolumeLevel;
     [self.registry setVolumeLevel: originalVolumeLevel forBundle: bundleID];
-    // publish the changes
     [self _publishVolumeChangesForBundle: bundleID];
-    // don't keep reference to this bundle anymore
     [self.registry removeBundle: bundleID];
 }
 
@@ -188,49 +245,92 @@ static char * const kHSCCallbacksQueueLabel = "com.HoneySound.HSCore.HSCVolumeMa
 - (void)_someApplicationDidLaunch: (NSNotification *)notification
 {
     NSRunningApplication *app = notification.userInfo[NSWorkspaceApplicationKey];
-    NSLog(@"<%@> was launched and is in the registry", app.localizedName);
     NSString *bundleID = app.bundleIdentifier;
     if ([self.registry containsBundle: bundleID]) {
-        // initial injection for this instance of the application
-        [self _injectBundle: bundleID callback: ^(BOOL succeeded) {
-            if (!succeeded) {
-                NSLog(@"Unable to re-inject <%@>", bundleID);
-            } else {
-                [self _publishVolumeChangesForBundle: bundleID];
-            }
-        }];
+        if ([self.registry volumeLevelForBundle: bundleID] < 1.0) {
+            NSLog(@"<%@> was launched and is in the registry", app.localizedName);
+            // initial injection for this instance of the application
+            [self _injectBundle: bundleID completion: ^(BOOL succeeded) {
+                if (!succeeded) {
+                    NSLog(@"Unable to re-inject <%@>", bundleID);
+                } else {
+                    [self _publishVolumeChangesForBundle: bundleID];
+                }
+            }];
+        }
     }
 }
 
 - (void)_initializeBundle: (NSString *)bundleID
               volumeLevel: (CGFloat)volume
-                 callback: (HSCVolumeChangeCallback)callback
+               completion: (void(^)(BOOL succeeded))handler;
 {
-    [self.registry addBundle: bundleID];
-    [self.registry setVolumeLevel: volume forBundle: bundleID];
-    [self _injectBundle: bundleID callback: callback];
-    [self _publishVolumeChangesForBundle: bundleID];
-}
+    [self _injectBundle: bundleID completion: ^(BOOL succeeded) {
+        if (succeeded) {
+            [self.registry setVolumeLevel: volume forBundle: bundleID];
+            [self _publishVolumeChangesForBundle: bundleID];
+        } else {
+//            [self.registry removeBundle: bundleID];
+        }
+        if (handler) handler(succeeded);
+    }];
 
-- (void)_publishVolumeLevel: (CGFloat)level forBundleID: (NSString *)bundleID
-{
-    NSDictionary *userInfo = @{kHSKUserInfoBundleIDKey : bundleID,
-                            kHSKUserInfoVolumeLevelKey : @(level)};
-    NSDistributedNotificationCenter *center = [NSDistributedNotificationCenter defaultCenter];
-    [center postNotificationName: kHSCVolumeChangeNotificationName object: nil userInfo: userInfo];
 }
 
 - (void)_publishVolumeChangesForBundle:(NSString *)bundleID
 {
     CGFloat volumeLevel = [self.registry volumeLevelForBundle: bundleID];
-    [self _publishVolumeLevel: volumeLevel forBundleID: bundleID];
+    NSDictionary *userInfo = @{kHSKUserInfoBundleIDKey : bundleID,
+                               kHSKUserInfoVolumeLevelKey : @(volumeLevel)};
+    NSDistributedNotificationCenter *center = [NSDistributedNotificationCenter defaultCenter];
+    [center postNotificationName: kHSCVolumeChangeNotificationName object: nil userInfo: userInfo];
 }
 
+#pragma mark - Code injection
+
 - (void)_injectBundle: (NSString *)bundleID
-             callback: (HSCVolumeChangeCallback)callback
+           completion: (void(^)(BOOL succeeded))handler;
 {
-    dispatch_async(self.callbacksQueue, ^{
-        if (callback) callback(NO);
+    NSArray *instances = [NSRunningApplication runningApplicationsWithBundleIdentifier: bundleID];
+    if (instances.count == 0) {
+        dispatch_async(self.callbacksQueue, ^{
+            // pending injection
+            if (handler) handler(YES);
+        });
+        return;
+    }
+    dispatch_group_t group = dispatch_group_create();
+    dispatch_queue_t queue = dispatch_queue_create(NULL, DISPATCH_QUEUE_SERIAL);
+
+    NSString *payload = [[NSBundle bundleForClass: self.class] pathForResource: @"HSCUnicornsPayload"
+                                                                        ofType: @"dylib"];
+    if (payload.length == 0) {
+        @throw [NSException exceptionWithName: @"Fuck this" reason: @"Where's my payload?" userInfo: nil];
+        return;
+    }
+    __block int fails = 0;
+    [instances enumerateObjectsUsingBlock: ^(NSRunningApplication *application, NSUInteger idx, BOOL *stop) {
+        dispatch_group_enter(group);
+        dispatch_group_async(group, queue, ^{
+            pid_t target = application.processIdentifier;
+            NSLog(@"Inject %d", target);
+            RDInjectionWizard *wizard = [[RDInjectionWizard alloc] initWithTarget: target
+                                                                          payload: payload];
+            [wizard injectUsingCompletionBlockWithSuccess: ^{
+                NSLog(@"FINISH %d", target);
+                dispatch_group_leave(group);
+            } failure: ^(RDInjectionError error) {
+                ++fails;
+                NSLog(@"Error: {%d}, %@", error, application);
+                dispatch_group_leave(group);
+            }];
+        });
+    }];
+
+    dispatch_group_notify(group, queue, ^{
+        dispatch_async(self.callbacksQueue, ^{
+            if (handler) handler(fails == 0);
+        });
     });
 }
 

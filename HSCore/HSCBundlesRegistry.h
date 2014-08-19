@@ -12,7 +12,7 @@
 
 @interface HSCBundlesRegistry : NSObject
 
-// supports saving items to User Defaults
+// supports items backup to User Defaults
 + (instancetype)defaultRegistry;
 
 - (void)addBundle: (NSString *)bundleID;
@@ -22,6 +22,9 @@
 - (BOOL)containsBundle: (NSString *)bundleID;
 - (NSArray *)registeredBundles;
 
+- (void)muteBundle: (NSString *)bundle;
+- (void)unmuteBundle: (NSString *)bundle;
+/// returns 0.0 if muted
 - (CGFloat)volumeLevelForBundle: (NSString *)bundleID;
 - (void)setVolumeLevel: (CGFloat)volume forBundleAtIndex: (NSUInteger)idx;
 - (void)setVolumeLevel: (CGFloat)volume forBundle: (NSString *)bundleID;

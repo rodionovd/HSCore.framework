@@ -8,7 +8,14 @@
 
 #import <Cocoa/Cocoa.h>
 
-typedef void (^HSCVolumeChangeCallback)(BOOL succeeded);
+/**
+ *
+ * @param bundles the array of objects conformed to HSCBundleModelProtocol
+ */
+typedef void (^HSCVolumeLevelInfoForBundlesCallback)(NSArray *bundles);
+typedef void (^HSCUpdateVolumeLevelInfoCallback)(BOOL succeeded,
+                                                 NSArray *bundlesWeFailedToChangeVolumeLevelOf);
+
 
 @interface HSCVolumeMaster : NSObject
 
@@ -16,7 +23,7 @@ typedef void (^HSCVolumeChangeCallback)(BOOL succeeded);
 
 - (void)setVolumeLevel: (CGFloat)level
              forBundle: (NSString *)bundleID
-              callback: (HSCVolumeChangeCallback)callback;
+            completion: (void(^)(BOOL succeeded))handler;
 
 // Increase volume level by 10%
 - (void)increaseVolumeLevelForBundle: (NSString *)bundleID;
@@ -28,14 +35,16 @@ typedef void (^HSCVolumeChangeCallback)(BOOL succeeded);
 - (void)unmuteBundle: (NSString *)bundleID;
 
 // current volume level
-// @iCyberon >> The applications that are not injected should return 100% or null;
 - (CGFloat)volumeLevelForBundle: (NSString *)bundleID;
-// current volume level
-// @iCyberon >> The applications that are not injected should return 100% or null;
-- (void)volumeLeveslForBundles: (NSString *)bundleID callback: (id)callback;
+
+// @return dictionary with the following format: keys are bundleIDs and
+// values are NSNumbers wrapped volumeLevels
+- (NSDictionary *)volumeLevelsForBundles: (NSArray *)bundleIDs;
 
 // params: {@"bundleID1" : @(0.3f), @"bundleID2" : @(0.7f), ...};
-- (void)setVolumeLevelsForBundles: (NSDictionary *)params callback: (id)callback;
+- (void)setVolumeLevelsForBundles: (NSDictionary *)bundlesInformation
+                       completion: (void(^)(void))handler
+                          failure: (void(^)(NSArray *failedBundles))failure;
 // remove injection from a single bundle
 - (void)revertVolumeChangesForBundle: (NSString *)bundleID;
 // remove specific injections

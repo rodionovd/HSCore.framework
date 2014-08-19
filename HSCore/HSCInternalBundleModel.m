@@ -6,17 +6,17 @@
 //  Copyright (c) 2014 HoneySound. All rights reserved.
 //
 
-#import "HSCBundleModel.h"
+#import "HSCInternalBundleModel.h"
 
-@interface HSCBundleModel()
+@interface HSCInternalBundleModel()
 @property (readwrite) NSString *bundleID;
 @end
 
-@implementation HSCBundleModel
+@implementation HSCInternalBundleModel
 
 + (instancetype)modelForBundleID: (NSString *)bundleID
 {
-    return [[HSCBundleModel alloc] initWithBundleID: bundleID];
+    return [[HSCInternalBundleModel alloc] initWithBundleID: bundleID];
 }
 
 - (instancetype)initWithBundleID: (NSString *)bundleID
@@ -24,6 +24,7 @@
     if ((self = [super init])) {
         _bundleID = [bundleID copy];
         _volume = 1.0f;
+        _muted = NO;
     }
 
     return self;
@@ -33,6 +34,7 @@
 
 #define kBundleIDKey @"bundleID"
 #define kVolumeLevelKey @"volumeLevel"
+#define kMutedKey @"muted"
 
 + (BOOL)supportsSecureCoding
 {
@@ -46,8 +48,10 @@
     // We assume that CGFloat is double - and that is true on 64 bit.
     // (this framework is not supposed to be compiled in 32 bit mode anyway)
     CGFloat volumeLevel = [decoder decodeDoubleForKey: kVolumeLevelKey];
+    BOOL muted = [decoder decodeBoolForKey: kMutedKey];
     self = [self initWithBundleID: bundleID];
     self.volume = volumeLevel;
+    self.muted = muted;
 
     return self;
 }
@@ -56,5 +60,6 @@
 {
     [encoder encodeObject: self.bundleID forKey: kBundleIDKey];
     [encoder encodeDouble: self.volume   forKey: kVolumeLevelKey];
+    [encoder encodeBool:   self.muted    forKey: kMutedKey];
 }
 @end

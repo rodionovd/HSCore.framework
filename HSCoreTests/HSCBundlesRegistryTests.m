@@ -10,7 +10,7 @@
 #import <XCTest/XCTest.h>
 #import "HSCBundlesRegistry+HSC_CleanUp.h"
 #import "HSCBundlesRegistry.h"
-#import "HSCBundleModel.h"
+#import "HSCInternalBundleModel.h"
 
 @interface HSCBundlesRegistry (LoadItems)
 - (void)_loadRegistryItems;
@@ -58,7 +58,7 @@
     // when
     [self.registry addBundles: bundleIDs];
     //then
-    XCTAssert([self.registry registeredBundles].count == 2);
+    XCTAssertEqual([self.registry registeredBundles].count, 2);
     XCTAssertEqualObjects([self.registry registeredBundles][0], bundleIDs[0], @"First item bundleID mismatch");
     XCTAssertEqualObjects([self.registry registeredBundles][1], bundleIDs[1], @"Second item bundleID mismatch");
     XCTAssertEqual([self.registry volumeLevelForBundle: bundleIDs[0]], 1.0f);
@@ -99,7 +99,7 @@
     XCTAssert([bundleIDs isEqualToArray: registeredBundles]);
 }
 
-- (void)testGetInitialVolumeLevelForModelFromRegistry
+- (void)testGettingInitialVolumeLevelForModelFromRegistry
 {
     // given
     NSArray *bundleIDs = @[@"first.bundle.id", @"second.bundle.id"];
@@ -109,7 +109,7 @@
     XCTAssertEqual([self.registry volumeLevelForBundle: bundleIDs[0]], 1.0f);
 }
 
-- (void)testGetCustomVolumeLevelForModelFromRegistry
+- (void)testGettingCustomVolumeLevelForModelFromRegistry
 {
     // given
     NSArray *bundleIDs = @[@"first.bundle.id", @"second.bundle.id"];
@@ -119,6 +119,44 @@
     [self.registry setVolumeLevel: testVolumeLevel forBundle: bundleIDs[1]];
     // then
     XCTAssertEqual([self.registry volumeLevelForBundle: bundleIDs[0]], 1.0f);
+}
+
+- (void)testMutingModelFromRegistry
+{
+    // given
+    NSString *bundle = @"first.bundle.id";
+    // when
+    [self.registry addBundle: bundle];
+    [self.registry muteBundle: bundle];
+    // then
+    XCTAssertEqual([self.registry volumeLevelForBundle: bundle], 0.0);
+}
+
+- (void)testUnmutingModelFromRegistry
+{
+    // given
+    NSString *bundle = @"first.bundle.id";
+    CGFloat testVolumeLevel = 0.42f;
+    // when
+    [self.registry addBundle: bundle];
+    [self.registry setVolumeLevel: testVolumeLevel forBundle: bundle];
+    [self.registry muteBundle: bundle];
+    [self.registry unmuteBundle: bundle];
+    // then
+    XCTAssertEqual([self.registry volumeLevelForBundle: bundle], testVolumeLevel);
+}
+
+- (void)testChangingVolumeLevelWhileModelIsMuted
+{
+    // given
+    NSString *bundle = @"first.bundle.id";
+    CGFloat testVolumeLevel = 0.42f;
+    // when
+    [self.registry addBundle: bundle];
+    [self.registry muteBundle: bundle];
+    [self.registry setVolumeLevel: testVolumeLevel forBundle: bundle];
+    // then
+    XCTAssertEqual([self.registry volumeLevelForBundle: bundle], testVolumeLevel);
 }
 
 - (void)testSettingVolumeLevelForItemFromRegistryViaBundleID
@@ -185,6 +223,7 @@
                    @"Some items were lost during saving");
     XCTAssertEqualObjects([self.registry registeredBundles][0], bundleIDs[0],
                           @"Items ware not load properly");
+    XCTAssertEqual([self.registry volumeLevelForBundle: bundleIDs[1]], testVolumeLevel);
 }
 
 @end
