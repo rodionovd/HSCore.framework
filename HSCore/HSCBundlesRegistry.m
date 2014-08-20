@@ -7,13 +7,13 @@
 //
 
 #import "HSCBundlesRegistry.h"
-#import "HSCBundleModel.h"
+#import "HSCInternalBundleModel.h"
 
 static char * const kHSCUserDefaultsQueueLabel = "com.HoneySound.HSCore.HSCBundlesRegistry.userDefaultsQueue";;
 static NSString * const kHSCRegistryItemsKey = @"kHSCRegistryItemsKey";
 
 @interface HSCBundlesRegistry()
-@property (copy) NSMutableArray *items;
+@property (copy) NSMutableArray *items; // array of HSCInternalBundleModel
 @property (strong) NSLock *itemsAccessLock;
 @property (strong) dispatch_queue_t userDefaultsQueue;
 
@@ -58,7 +58,7 @@ static NSString * const kHSCRegistryItemsKey = @"kHSCRegistryItemsKey";
         [self.itemsAccessLock unlock];
         return;
     }
-    [(NSMutableArray *)self.items addObject: [HSCBundleModel modelForBundleID: bundleID]];
+    [(NSMutableArray *)self.items addObject: [HSCInternalBundleModel modelForBundleID: bundleID]];
     [self.itemsAccessLock unlock];
 
     [self _saveRegistryItems];
@@ -103,7 +103,7 @@ static NSString * const kHSCRegistryItemsKey = @"kHSCRegistryItemsKey";
         return @[];
     }
     NSMutableArray *result = [NSMutableArray arrayWithCapacity: count];
-    [self.items enumerateObjectsUsingBlock: ^(HSCBundleModel *model, NSUInteger idx, BOOL *stop) {
+    [self.items enumerateObjectsUsingBlock: ^(HSCInternalBundleModel *model, NSUInteger idx, BOOL *stop) {
         [result addObject: model.bundleID];
     }];
     [self.itemsAccessLock unlock];
@@ -111,7 +111,7 @@ static NSString * const kHSCRegistryItemsKey = @"kHSCRegistryItemsKey";
     return [result copy];
 }
 
-- (HSCBundleModel *)modelForBundle: (NSString *)bundleID
+- (HSCInternalBundleModel *)modelForBundle: (NSString *)bundleID
 {
     [self.itemsAccessLock lock];
     NSUInteger idx = [self _indexOfModelWithBundleID: bundleID];
@@ -119,7 +119,7 @@ static NSString * const kHSCRegistryItemsKey = @"kHSCRegistryItemsKey";
         [self.itemsAccessLock unlock];
         return nil;
     } else {
-        HSCBundleModel *result = self.items[idx];
+        HSCInternalBundleModel *result = self.items[idx];
         [self.itemsAccessLock unlock];
 
         return result;
@@ -134,9 +134,9 @@ static NSString * const kHSCRegistryItemsKey = @"kHSCRegistryItemsKey";
         [self.itemsAccessLock unlock];
         return kHSCInvalidVolumeLevel;
     } else {
-        HSCBundleModel *model = self.items[idx];
+        HSCInternalBundleModel *model = self.items[idx];
         [self.itemsAccessLock unlock];
-        return model.volume;
+        return model.muted ? 0.0f : model.volume;
     }
 }
 
@@ -147,9 +147,10 @@ static NSString * const kHSCRegistryItemsKey = @"kHSCRegistryItemsKey";
         [self.itemsAccessLock unlock];
         return;
     }
-    HSCBundleModel *bundle = [self.items objectAtIndex: idx];
+    HSCInternalBundleModel *model = [self.items objectAtIndex: idx];
     [self.itemsAccessLock unlock];
-    [bundle setVolume: volume];
+    model.volume = volume;
+    model.muted = NO;
 
     [self _saveRegistryItems];
 }
@@ -162,9 +163,40 @@ static NSString * const kHSCRegistryItemsKey = @"kHSCRegistryItemsKey";
         [self.itemsAccessLock unlock];
         return;
     }
-    HSCBundleModel *bundle = [self.items objectAtIndex: idx];
+    HSCInternalBundleModel *model = [self.items objectAtIndex: idx];
     [self.itemsAccessLock unlock];
-    [bundle setVolume: volume];
+    model.volume = volume;
+    model.muted = NO;
+
+    [self _saveRegistryItems];
+}
+
+- (void)muteBundle: (NSString *)bundle
+{
+    [self.itemsAccessLock lock];
+    NSUInteger idx = [self _indexOfModelWithBundleID: bundle];
+    if (idx == NSNotFound) {
+        [self.itemsAccessLock unlock];
+        return;
+    }
+    HSCInternalBundleModel *model = [self.items objectAtIndex: idx];
+    [self.itemsAccessLock unlock];
+    model.muted = YES;
+
+    [self _saveRegistryItems];
+}
+
+- (void)unmuteBundle: (NSString *)bundle
+{
+    [self.itemsAccessLock lock];
+    NSUInteger idx = [self _indexOfModelWithBundleID: bundle];
+    if (idx == NSNotFound) {
+        [self.itemsAccessLock unlock];
+        return;
+    }
+    HSCInternalBundleModel *model = [self.items objectAtIndex: idx];
+    [self.itemsAccessLock unlock];
+    model.muted = NO;
 
     [self _saveRegistryItems];
 }
@@ -172,7 +204,7 @@ static NSString * const kHSCRegistryItemsKey = @"kHSCRegistryItemsKey";
 - (NSUInteger)_indexOfModelWithBundleID: (NSString *)bundleID
 {
     NSUInteger idx = [self.items indexOfObjectPassingTest:
-                      ^BOOL(HSCBundleModel *model, NSUInteger idx, BOOL *stop) {
+                      ^BOOL(HSCInternalBundleModel *model, NSUInteger idx, BOOL *stop) {
                           return [model.bundleID isEqualToString: bundleID];
                       }];
     return idx;
@@ -192,7 +224,7 @@ static NSString * const kHSCRegistryItemsKey = @"kHSCRegistryItemsKey";
 
     dispatch_sync(self.userDefaultsQueue, ^{
         NSMutableArray *list = [NSMutableArray arrayWithCapacity: count];
-        [copiedItems enumerateObjectsUsingBlock: ^(HSCBundleModel *model, NSUInteger idx, BOOL *stop) {
+        [copiedItems enumerateObjectsUsingBlock: ^(HSCInternalBundleModel *model, NSUInteger idx, BOOL *stop) {
             [list addObject: [NSKeyedArchiver archivedDataWithRootObject: model]];
         }];
         [[NSUserDefaults standardUserDefaults] setObject: list
@@ -208,7 +240,7 @@ static NSString * const kHSCRegistryItemsKey = @"kHSCRegistryItemsKey";
     
     [self.itemsAccessLock lock];
     [items enumerateObjectsUsingBlock: ^(NSData *data, NSUInteger idx, BOOL *stop) {
-        HSCBundleModel *model = [NSKeyedUnarchiver unarchiveObjectWithData: data];
+        HSCInternalBundleModel *model = [NSKeyedUnarchiver unarchiveObjectWithData: data];
         if (!model) return;
         [(NSMutableArray *)self.items addObject: model];
     }];

@@ -6,9 +6,16 @@
 //  Copyright (c) 2014 HoneySound. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import <Cocoa/Cocoa.h>
 
-typedef void (^HSCVolumeChangeCallback)(BOOL succeeded);
+/**
+ *
+ * @param bundles the array of objects conformed to HSCBundleModelProtocol
+ */
+typedef void (^HSCVolumeLevelInfoForBundlesCallback)(NSArray *bundles);
+typedef void (^HSCUpdateVolumeLevelInfoCallback)(BOOL succeeded,
+                                                 NSArray *bundlesWeFailedToChangeVolumeLevelOf);
+
 
 @interface HSCVolumeMaster : NSObject
 
@@ -16,7 +23,7 @@ typedef void (^HSCVolumeChangeCallback)(BOOL succeeded);
 
 - (void)setVolumeLevel: (CGFloat)level
              forBundle: (NSString *)bundleID
-              callback: (HSCVolumeChangeCallback)callback;
+            completion: (void(^)(BOOL succeeded))handler;
 
 // Increase volume level by 10%
 - (void)increaseVolumeLevelForBundle: (NSString *)bundleID;
@@ -26,20 +33,24 @@ typedef void (^HSCVolumeChangeCallback)(BOOL succeeded);
 - (void)muteBundle: (NSString *)bundleID;
 // restore a volume level before muting
 - (void)unmuteBundle: (NSString *)bundleID;
-// remove injection
-- (void)restoreVolumeLevelForBundle: (NSString *)bundleID;
+
 // current volume level
-// @iCyberon >> The applications that are not injected should return 100% or null;
-- (CGFloat)getVolumeLevelForBundle: (NSString *)bundleID;
+- (CGFloat)volumeLevelForBundle: (NSString *)bundleID;
+
+// @return dictionary with the following format: keys are bundleIDs and
+// values are NSNumbers wrapped volumeLevels
+- (NSDictionary *)volumeLevelsForBundles: (NSArray *)bundleIDs;
 
 // params: {@"bundleID1" : @(0.3f), @"bundleID2" : @(0.7f), ...};
-- (void)setVolumeLevelsForBundles: (NSDictionary *)params callback: (id)callback;
+- (void)setVolumeLevelsForBundles: (NSDictionary *)bundlesInformation
+                       completion: (void(^)(void))handler
+                          failure: (void(^)(NSArray *failedBundles))failure;
+// remove injection from a single bundle
+- (void)revertVolumeChangesForBundle: (NSString *)bundleID;
+// remove specific injections
+- (void)revertVolumeChangesForBundles: (NSArray *)bundleIDs;
 // remove all the injection (useful when user quit HoneySound)
-- (void)restoreVolumeLevelForBundles: (NSString *)bundleID;
-// or — not sure about this
-- (void)revertInjection;
-// current volume level
-// @iCyberon >> The applications that are not injected should return 100% or null;
-- (void)getVolumeLeveslForBundles: (NSString *)bundleID callback: (id)callback;
+- (void)revertAllVolumeChanges;
+
 
 @end

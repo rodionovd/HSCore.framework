@@ -7,8 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0A3DEE3E19A0FFB300A14E0C /* HSCBundleModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A3DEE3C19A0FFB300A14E0C /* HSCBundleModel.h */; };
-		0A3DEE3F19A0FFB300A14E0C /* HSCBundleModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A3DEE3D19A0FFB300A14E0C /* HSCBundleModel.m */; };
+		0A210D1919A293AE0088C624 /* HSCSharedNotifications.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A210D1719A293AE0088C624 /* HSCSharedNotifications.h */; };
+		0A210D1A19A293AE0088C624 /* HSCSharedNotifications.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A210D1719A293AE0088C624 /* HSCSharedNotifications.h */; };
+		0A210D1B19A293AE0088C624 /* HSCSharedNotifications.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A210D1819A293AE0088C624 /* HSCSharedNotifications.m */; };
+		0A210D1C19A293AE0088C624 /* HSCSharedNotifications.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A210D1819A293AE0088C624 /* HSCSharedNotifications.m */; };
+		0A3DEE3E19A0FFB300A14E0C /* HSCInternalBundleModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A3DEE3C19A0FFB300A14E0C /* HSCInternalBundleModel.h */; };
+		0A3DEE3F19A0FFB300A14E0C /* HSCInternalBundleModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A3DEE3D19A0FFB300A14E0C /* HSCInternalBundleModel.m */; };
 		0A3DEE4219A1013000A14E0C /* HSCBundlesRegistry.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A3DEE4019A1013000A14E0C /* HSCBundlesRegistry.h */; };
 		0A3DEE4319A1013000A14E0C /* HSCBundlesRegistry.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A3DEE4119A1013000A14E0C /* HSCBundlesRegistry.m */; };
 		0A3DEE4F19A1041D00A14E0C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A3DEE4E19A1041D00A14E0C /* main.m */; };
@@ -136,8 +140,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		0A3DEE3C19A0FFB300A14E0C /* HSCBundleModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSCBundleModel.h; sourceTree = "<group>"; };
-		0A3DEE3D19A0FFB300A14E0C /* HSCBundleModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSCBundleModel.m; sourceTree = "<group>"; };
+		0A210D1719A293AE0088C624 /* HSCSharedNotifications.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSCSharedNotifications.h; sourceTree = "<group>"; };
+		0A210D1819A293AE0088C624 /* HSCSharedNotifications.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSCSharedNotifications.m; sourceTree = "<group>"; };
+		0A3DEE3C19A0FFB300A14E0C /* HSCInternalBundleModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSCInternalBundleModel.h; sourceTree = "<group>"; };
+		0A3DEE3D19A0FFB300A14E0C /* HSCInternalBundleModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSCInternalBundleModel.m; sourceTree = "<group>"; };
 		0A3DEE4019A1013000A14E0C /* HSCBundlesRegistry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSCBundlesRegistry.h; sourceTree = "<group>"; };
 		0A3DEE4119A1013000A14E0C /* HSCBundlesRegistry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSCBundlesRegistry.m; sourceTree = "<group>"; };
 		0A3DEE4A19A1041D00A14E0C /* TestsHostApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TestsHostApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -200,13 +206,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0A210D1D19A293B20088C624 /* Notifications */ = {
+			isa = PBXGroup;
+			children = (
+				0A210D1719A293AE0088C624 /* HSCSharedNotifications.h */,
+				0A210D1819A293AE0088C624 /* HSCSharedNotifications.m */,
+			);
+			name = Notifications;
+			sourceTree = "<group>";
+		};
 		0A3DEE4419A1027D00A14E0C /* Registry */ = {
 			isa = PBXGroup;
 			children = (
-				0A3DEE3C19A0FFB300A14E0C /* HSCBundleModel.h */,
-				0A3DEE3D19A0FFB300A14E0C /* HSCBundleModel.m */,
 				0A3DEE4019A1013000A14E0C /* HSCBundlesRegistry.h */,
 				0A3DEE4119A1013000A14E0C /* HSCBundlesRegistry.m */,
+				0A3DEE3C19A0FFB300A14E0C /* HSCInternalBundleModel.h */,
+				0A3DEE3D19A0FFB300A14E0C /* HSCInternalBundleModel.m */,
 			);
 			name = Registry;
 			sourceTree = "<group>";
@@ -268,6 +283,7 @@
 			children = (
 				0A54246B19A0BB2D00445CEC /* RDInjectionWizard.xcodeproj */,
 				0A8813B119A0BA7700C55A02 /* HSCore */,
+				0A210D1D19A293B20088C624 /* Notifications */,
 				0A54249019A0C46C00445CEC /* HSCUnicornsPayload */,
 				0A8813BB19A0BA7700C55A02 /* Tests */,
 				0A5424AC19A0C5D100445CEC /* Frameworks */,
@@ -336,6 +352,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0A54249219A0C46C00445CEC /* HSCUnicornsPayload.h in Headers */,
+				0A210D1A19A293AE0088C624 /* HSCSharedNotifications.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -346,7 +363,8 @@
 				0A8813B519A0BA7700C55A02 /* HSCore.h in Headers */,
 				0A54248919A0C13200445CEC /* HSCVolumeMaster.h in Headers */,
 				0A3DEE4219A1013000A14E0C /* HSCBundlesRegistry.h in Headers */,
-				0A3DEE3E19A0FFB300A14E0C /* HSCBundleModel.h in Headers */,
+				0A3DEE3E19A0FFB300A14E0C /* HSCInternalBundleModel.h in Headers */,
+				0A210D1919A293AE0088C624 /* HSCSharedNotifications.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -566,6 +584,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0A210D1C19A293AE0088C624 /* HSCSharedNotifications.m in Sources */,
 				0A54249419A0C46C00445CEC /* HSCUnicornsPayload.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -575,7 +594,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				0A3DEE4319A1013000A14E0C /* HSCBundlesRegistry.m in Sources */,
-				0A3DEE3F19A0FFB300A14E0C /* HSCBundleModel.m in Sources */,
+				0A3DEE3F19A0FFB300A14E0C /* HSCInternalBundleModel.m in Sources */,
+				0A210D1B19A293AE0088C624 /* HSCSharedNotifications.m in Sources */,
 				0A54248A19A0C13200445CEC /* HSCVolumeMaster.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -636,7 +656,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = rodionovd;
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -652,7 +672,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = rodionovd;
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = TestsHostApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
@@ -848,6 +868,7 @@
 				0A3DEE6519A1041D00A14E0C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		0A54249D19A0C46C00445CEC /* Build configuration list for PBXNativeTarget "HSCUnicornsPayload" */ = {
 			isa = XCConfigurationList;

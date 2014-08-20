@@ -8,9 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
-@interface HSCBundleModel : NSObject <NSSecureCoding>
+@interface HSCInternalBundleModel : NSObject <NSSecureCoding>
 @property (readonly, copy) NSString *bundleID;
 @property (readwrite, assign) CGFloat volume; // [0..1], default is 1
+@property (readwrite, assign) BOOL muted;
 
 + (instancetype)modelForBundleID: (NSString *)bundleID;
 @end
