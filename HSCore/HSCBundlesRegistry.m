@@ -102,13 +102,10 @@ static NSString * const kHSCRegistryItemsKey = @"kHSCRegistryItemsKey";
         [self.itemsAccessLock unlock];
         return @[];
     }
-    NSMutableArray *result = [NSMutableArray arrayWithCapacity: count];
-    [self.items enumerateObjectsUsingBlock: ^(HSCInternalBundleModel *model, NSUInteger idx, BOOL *stop) {
-        [result addObject: model.bundleID];
-    }];
+    NSArray *result = [self valueForKeyPath: @"items.@distinctUnionOfObjects.bundleID"];
     [self.itemsAccessLock unlock];
 
-    return [result copy];
+    return result;
 }
 
 - (HSCInternalBundleModel *)modelForBundle: (NSString *)bundleID

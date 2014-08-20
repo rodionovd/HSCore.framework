@@ -40,28 +40,30 @@
 {
     // given
     NSArray *bundleIDs = @[@"first.bundle.id", @"second.bundle.id"];
+    NSCountedSet *setOriginal = [NSCountedSet setWithObject: bundleIDs[0]];
+    NSCountedSet *setResult = nil;
     // when
-    [bundleIDs enumerateObjectsUsingBlock: ^(NSString *item, NSUInteger idx, BOOL *stop) {
-        [self.registry addBundle: item];
-    }];
+    [self.registry addBundle: bundleIDs[0]];
+    setResult = [NSCountedSet setWithArray: [self.registry registeredBundles]];
     //then
-    XCTAssert([self.registry registeredBundles].count == 2);
-    XCTAssertEqualObjects([self.registry registeredBundles][0], bundleIDs[0], @"First item bundleID mismatch");
-    XCTAssertEqualObjects([self.registry registeredBundles][1], bundleIDs[1], @"Second item bundleID mismatch");
+    XCTAssert([self.registry registeredBundles].count == 1);
+    XCTAssertEqualObjects(setResult, setOriginal);
     XCTAssertEqual([self.registry volumeLevelForBundle: bundleIDs[0]], 1.0f);
-    XCTAssertEqual([self.registry volumeLevelForBundle: bundleIDs[1]], 1.0f);
+    XCTAssertEqual([self.registry volumeLevelForBundle: bundleIDs[1]], kHSCInvalidVolumeLevel);
 }
 
 - (void)testAddingItemsFromArrayToRegistry
 {
     // given
     NSArray *bundleIDs = @[@"first.bundle.id", @"second.bundle.id"];
+    NSCountedSet *setOriginal = [NSCountedSet setWithArray: bundleIDs];
+    NSCountedSet *setResult = nil;
     // when
     [self.registry addBundles: bundleIDs];
+    setResult = [NSCountedSet setWithArray: [self.registry registeredBundles]];
     //then
     XCTAssertEqual([self.registry registeredBundles].count, 2);
-    XCTAssertEqualObjects([self.registry registeredBundles][0], bundleIDs[0], @"First item bundleID mismatch");
-    XCTAssertEqualObjects([self.registry registeredBundles][1], bundleIDs[1], @"Second item bundleID mismatch");
+    XCTAssertEqualObjects(setResult, setOriginal);
     XCTAssertEqual([self.registry volumeLevelForBundle: bundleIDs[0]], 1.0f);
     XCTAssertEqual([self.registry volumeLevelForBundle: bundleIDs[1]], 1.0f);
 }
@@ -93,11 +95,13 @@
 {
     // given
     NSArray *bundleIDs = @[@"first.bundle.id", @"second.bundle.id"];
+    NSCountedSet *setOriginal = [NSCountedSet setWithArray: bundleIDs];
+    NSCountedSet *setResult = nil;
     // when
     [self.registry addBundles: bundleIDs];
-    NSArray *registeredBundles = [self.registry registeredBundles];
+    setResult = [NSCountedSet setWithArray: [self.registry registeredBundles]];
     // then
-    XCTAssert([bundleIDs isEqualToArray: registeredBundles]);
+    XCTAssertEqualObjects(setResult, setOriginal);
 }
 
 - (void)testGettingInitialVolumeLevelForModelFromRegistry
@@ -208,6 +212,8 @@
 {
     // given
     NSArray *bundleIDs = @[@"first.bundle.id", @"second.bundle.id"];
+    NSCountedSet *setOriginal = [NSCountedSet setWithArray: bundleIDs];
+    NSCountedSet *setResult = nil;
     CGFloat testVolumeLevel = 0.42f;
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     // when
@@ -216,13 +222,14 @@
     [NSThread sleepForTimeInterval: 0.5f]; // what until items saved
     [self.registry _cleanupItems];
     [self.registry _loadRegistryItems];
+    setResult = [NSCountedSet setWithArray: [self.registry registeredBundles]];
     // then
     XCTAssert([[defaults objectForKey: kHSCRegistryItemsKey] isKindOfClass: NSArray.class],
               @"Saved items should be kind of NSArray");
     XCTAssertEqual([[defaults objectForKey: kHSCRegistryItemsKey] count],
                    [self.registry registeredBundles].count,
                    @"Some items were lost during saving");
-    XCTAssertEqualObjects([self.registry registeredBundles][0], bundleIDs[0],
+    XCTAssertEqualObjects(setOriginal, setResult,
                           @"Items ware not load properly");
     XCTAssertEqual([self.registry volumeLevelForBundle: bundleIDs[1]], testVolumeLevel);
 }
