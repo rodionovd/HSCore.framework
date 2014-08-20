@@ -78,7 +78,6 @@ static char * const kHSCCallbacksQueueLabel = "com.HoneySound.HSCore.HSCVolumeMa
     if ([self.registry containsBundle: bundleID] == NO) {
         // perform initial inject
         [self.registry addBundle: bundleID];
-        NSLog(@"Perform initial inject");
         [self _initializeBundle: bundleID volumeLevel: newLevel completion: handler];
         [self.registryTestLock unlock];
         return;
@@ -239,7 +238,6 @@ static char * const kHSCCallbacksQueueLabel = "com.HoneySound.HSCore.HSCVolumeMa
     [self revertVolumeChangesForBundles: allBundles];
 }
 
-
 #pragma mark - Private implementation
 
 - (void)_someApplicationDidLaunch: (NSNotification *)notification
@@ -248,7 +246,6 @@ static char * const kHSCCallbacksQueueLabel = "com.HoneySound.HSCore.HSCVolumeMa
     NSString *bundleID = app.bundleIdentifier;
     if ([self.registry containsBundle: bundleID]) {
         if ([self.registry volumeLevelForBundle: bundleID] < 1.0) {
-            NSLog(@"<%@> was launched and is in the registry", app.localizedName);
             // initial injection for this instance of the application
             [self _injectBundle: bundleID completion: ^(BOOL succeeded) {
                 if (!succeeded) {
@@ -270,7 +267,7 @@ static char * const kHSCCallbacksQueueLabel = "com.HoneySound.HSCore.HSCVolumeMa
             [self.registry setVolumeLevel: volume forBundle: bundleID];
             [self _publishVolumeChangesForBundle: bundleID];
         } else {
-//            [self.registry removeBundle: bundleID];
+            NSLog(@"Unable to inject into %@. See logs above", bundleID);
         }
         if (handler) handler(succeeded);
     }];
@@ -313,11 +310,9 @@ static char * const kHSCCallbacksQueueLabel = "com.HoneySound.HSCore.HSCVolumeMa
         dispatch_group_enter(group);
         dispatch_group_async(group, queue, ^{
             pid_t target = application.processIdentifier;
-            NSLog(@"Inject %d", target);
             RDInjectionWizard *wizard = [[RDInjectionWizard alloc] initWithTarget: target
                                                                           payload: payload];
             [wizard injectUsingCompletionBlockWithSuccess: ^{
-                NSLog(@"FINISH %d", target);
                 dispatch_group_leave(group);
             } failure: ^(RDInjectionError error) {
                 ++fails;
