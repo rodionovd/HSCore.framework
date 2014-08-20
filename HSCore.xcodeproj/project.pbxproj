@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0A210D1919A293AE0088C624 /* HSCSharedNotifications.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A210D1719A293AE0088C624 /* HSCSharedNotifications.h */; };
+		0A210D1919A293AE0088C624 /* HSCSharedNotifications.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A210D1719A293AE0088C624 /* HSCSharedNotifications.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		0A210D1A19A293AE0088C624 /* HSCSharedNotifications.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A210D1719A293AE0088C624 /* HSCSharedNotifications.h */; };
 		0A210D1B19A293AE0088C624 /* HSCSharedNotifications.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A210D1819A293AE0088C624 /* HSCSharedNotifications.m */; };
 		0A210D1C19A293AE0088C624 /* HSCSharedNotifications.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A210D1819A293AE0088C624 /* HSCSharedNotifications.m */; };
@@ -362,9 +362,9 @@
 			files = (
 				0A8813B519A0BA7700C55A02 /* HSCore.h in Headers */,
 				0A54248919A0C13200445CEC /* HSCVolumeMaster.h in Headers */,
+				0A210D1919A293AE0088C624 /* HSCSharedNotifications.h in Headers */,
 				0A3DEE4219A1013000A14E0C /* HSCBundlesRegistry.h in Headers */,
 				0A3DEE3E19A0FFB300A14E0C /* HSCInternalBundleModel.h in Headers */,
-				0A210D1919A293AE0088C624 /* HSCSharedNotifications.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
