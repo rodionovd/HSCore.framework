@@ -32,6 +32,7 @@
 {
     [self.registry _cleanupItems];
     [self.registry _cleanupDefaults];
+    [NSThread sleepForTimeInterval: 0.5f];
     [super tearDown];
 }
 
