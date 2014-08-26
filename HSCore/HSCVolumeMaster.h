@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 HoneySound. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
+@import Cocoa;
 
 /**
  *
@@ -51,6 +51,5 @@ typedef void (^HSCUpdateVolumeLevelInfoCallback)(BOOL succeeded,
 - (void)revertVolumeChangesForBundles: (NSArray *)bundleIDs;
 // remove all the injection (useful when user quit HoneySound)
 - (void)revertAllVolumeChanges;
-
 
 @end

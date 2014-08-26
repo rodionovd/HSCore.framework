@@ -6,9 +6,9 @@
 //  Copyright (c) 2014 HoneySound. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
-#import <XCTest/XCTest.h>
-#import <HSCore/HSCore.h>
+@import Cocoa;
+@import XCTest;
+@import HSCore;
 
 #import "HSCBundlesRegistry.h"
 #import "HSCBundlesRegistry+HSC_CleanUp.h"
@@ -22,6 +22,8 @@
 
 - (void)setUp
 {
+    [super setUp];
+
     self.volumeMaster = [HSCVolumeMaster sharedMaster];
     self.demoTargets = @[@"com.apple.TextEdit", @"com.apple.Notes", @"com.apple.Terminal"];
     // For some reason, +bundleWithIdentifier: returns nil...
@@ -31,7 +33,7 @@
     [self.demoTargets enumerateObjectsUsingBlock: ^(NSString *bundleID, NSUInteger idx, BOOL *stop) {
         NSBundle *bundle = [NSBundle bundleWithPath: correspondingTargetPaths[idx]];
         if (!bundle) {
-            @throw [NSException exceptionWithName: @"EPICFAIL" reason: @"Where're default the Apple apps?" userInfo: nil];
+            @throw [NSException exceptionWithName: @"EPICFAIL" reason: @"Where're the Apple default apps?" userInfo: nil];
             return;
         }
         NSError *error = nil;
@@ -45,10 +47,10 @@
                                          userInfo: nil];
         }
     }];
-    sleep(2);
+
     [[HSCBundlesRegistry defaultRegistry] _cleanupItems];
     [[HSCBundlesRegistry defaultRegistry] _cleanupDefaults];
-    [super setUp];
+    [NSThread sleepForTimeInterval: 2];
 }
 
 - (void)tearDown
@@ -62,6 +64,7 @@
             [app terminate];
         }];
     }];
+    [NSThread sleepForTimeInterval: 1];
     [super tearDown];
 }
 

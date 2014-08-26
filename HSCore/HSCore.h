@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 HoneySound. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
+@import Cocoa;
 
 //! Project version number for HSCore.
 FOUNDATION_EXPORT double HSCoreVersionNumber;

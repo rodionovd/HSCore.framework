@@ -6,8 +6,8 @@
 //  Copyright (c) 2014 HoneySound. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
-#import <XCTest/XCTest.h>
+@import Cocoa;
+@import XCTest;
 #import "HSCBundlesRegistry+HSC_CleanUp.h"
 #import "HSCBundlesRegistry.h"
 #import "HSCInternalBundleModel.h"

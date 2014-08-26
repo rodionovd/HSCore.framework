@@ -6,10 +6,14 @@
 //  Copyright (c) 2014 HoneySound. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
+@import Cocoa;
 
-@interface AppDelegate : NSObject <NSApplicationDelegate>
+@interface AppDelegate : NSObject
+<NSApplicationDelegate, NSTableViewDataSource, NSTableViewDelegate>
 
+@property (weak) IBOutlet NSTableView *tableView;
 
+- (IBAction)addApplication: (id)sender;
+- (IBAction)removeSelectedApplication: (id)sender;
 @end
 

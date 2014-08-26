@@ -13,8 +13,9 @@
 
 #define kMaxVolumeLevel (1.0)
 #define kDelayBeforeLazyInjection (3)
-#define kMaxVolumeLevelDiffToSayTheyAreDifferent (0.05)
+#define kMaxVolumeLevelDiffToSayTheyAreDifferent (0.01)
 static char * const kHSCCallbacksQueueLabel = "com.HoneySound.HSCore.HSCVolumeMaster.callbacksQueue";
+static NSString * const kHSCRegistryItemsKey = @"kHSCRegistryItemsKey";
 
 @interface HSCVolumeMaster()
 @property (strong) HSCBundlesRegistry *registry;
@@ -193,7 +194,7 @@ static char * const kHSCCallbacksQueueLabel = "com.HoneySound.HSCore.HSCVolumeMa
     NSMutableArray *failes = [NSMutableArray arrayWithCapacity: count];
     NSArray *bundles = bundlesInformation.allKeys;
     [bundles enumerateObjectsUsingBlock: ^(NSString *item, NSUInteger idx, BOOL *stop) {
-        dispatch_group_wait(group, DISPATCH_TIME_FOREVER);
+        dispatch_group_wait(group, (kDelayBeforeLazyInjection * NSEC_PER_SEC));
         dispatch_group_enter(group);
         dispatch_group_async(group, queue, ^{
             [self setVolumeLevel: [bundlesInformation[item] doubleValue] forBundle: item completion: ^(BOOL succeeded) {
@@ -236,7 +237,17 @@ static char * const kHSCCallbacksQueueLabel = "com.HoneySound.HSCore.HSCVolumeMa
 - (void)revertAllVolumeChanges
 {
     NSArray *allBundles = [self.registry registeredBundles];
-    [self revertVolumeChangesForBundles: allBundles];
+    [allBundles enumerateObjectsUsingBlock: ^(NSString *item, NSUInteger idx, BOOL *stop) {
+        if (NO == [self.registry containsBundle: item]) {
+            return;
+        }
+        CGFloat originalVolumeLevel = kMaxVolumeLevel;
+        [self.registry setVolumeLevel: originalVolumeLevel forBundle: item];
+        [self _publishVolumeChangesForBundle: item];
+        [self.registry removeBundle: item];
+    }];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey: kHSCRegistryItemsKey];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 #pragma mark - Private implementation
@@ -253,9 +264,11 @@ static char * const kHSCCallbacksQueueLabel = "com.HoneySound.HSCore.HSCVolumeMa
         // we don't need this target to be injected right now, so do it lazily
         delay_sec = kDelayBeforeLazyInjection;
     }
+    NSLog(@"Dispatch reinjection of <%@> in %ds", bundleID, delay_sec);
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay_sec * NSEC_PER_SEC)),
                    dispatch_get_main_queue(), ^{
         // initial injection for this instance of the application
+                       NSLog(@"REINJECTION <%@>", bundleID);
         [self _injectBundle: bundleID completion: ^(BOOL succeeded) {
             if (!succeeded) {
                 NSLog(@"Unable to re-inject <%@>", bundleID);

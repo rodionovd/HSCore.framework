@@ -1,3 +1,9 @@
 [submodule "RDInjectionWizard"]
 	path = RDInjectionWizard
 	url = https://github.com/rodionovd/RDInjectionWizard.git
+[submodule "rd_get_symbols"]
+	path = rd_get_symbols
+	url = https://github.com/rodionovd/rd_get_symbols.git
+[submodule "rd_route"]
+	path = rd_route
+	url = https://github.com/rodionovd/rd_route.git
