@@ -18,6 +18,7 @@ $ cd /your/project/dir/
 $ git submodule add https://github.com/rodionovd/HSCore.framework.git
 ...
 $ cd HSCore.framework
+$ git submodule update --init --recursive
 $ git checkout [master|develop]
   ```
 
