@@ -28,3 +28,12 @@ $ git checkout [master|develop]
 3. Add a target dependency on `HSCore.framework` for your application;  
 4. Add «Copy File» build phase: copy `HSCore.frameowork` to destination «Frameworks»;  
 5. Change Codesigning Identity of the **entire `HSCore.framework` subproject** to your own codesign identity (the same one that you use for the main application);  
+6. Open your application's `Info.plist` and add the following key to the dictionary there:  
+
+  ```xml
+  <key>SMPrivilegedExecutables</key>
+  <dict>
+    <key>me.rodionovd.RDInjectionWizard.injector</key>
+    <string>certificate leaf[subject.CN]</string>
+  </dict>
+  ```
