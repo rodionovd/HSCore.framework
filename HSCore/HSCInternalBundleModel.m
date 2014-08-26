@@ -50,8 +50,8 @@
     CGFloat volumeLevel = [decoder decodeDoubleForKey: kVolumeLevelKey];
     BOOL muted = [decoder decodeBoolForKey: kMutedKey];
     self = [self initWithBundleID: bundleID];
-    self.volume = volumeLevel;
-    self.muted = muted;
+    _volume = volumeLevel;
+    _muted = muted;
 
     return self;
 }

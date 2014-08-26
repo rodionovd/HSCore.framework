@@ -9,11 +9,11 @@
 #import "HSCBundlesRegistry.h"
 #import "HSCInternalBundleModel.h"
 
-static char * const kHSCUserDefaultsQueueLabel = "com.HoneySound.HSCore.HSCBundlesRegistry.userDefaultsQueue";;
+static char * const kHSCUserDefaultsQueueLabel = "com.HoneySound.HSCore.HSCBundlesRegistry.userDefaultsQueue";
 static NSString * const kHSCRegistryItemsKey = @"kHSCRegistryItemsKey";
 
 @interface HSCBundlesRegistry()
-@property (copy) NSMutableArray *items; // array of HSCInternalBundleModel
+@property (strong) NSMutableArray *items; // array of HSCInternalBundleModel
 @property (strong) NSLock *itemsAccessLock;
 @property (strong) dispatch_queue_t userDefaultsQueue;
 
@@ -144,7 +144,7 @@ static NSString * const kHSCRegistryItemsKey = @"kHSCRegistryItemsKey";
         [self.itemsAccessLock unlock];
         return;
     }
-    HSCInternalBundleModel *model = [self.items objectAtIndex: idx];
+    HSCInternalBundleModel *model = self.items[idx];
     [self.itemsAccessLock unlock];
     model.volume = volume;
     model.muted = NO;
@@ -160,7 +160,7 @@ static NSString * const kHSCRegistryItemsKey = @"kHSCRegistryItemsKey";
         [self.itemsAccessLock unlock];
         return;
     }
-    HSCInternalBundleModel *model = [self.items objectAtIndex: idx];
+    HSCInternalBundleModel *model = self.items[idx];
     [self.itemsAccessLock unlock];
     model.volume = volume;
     model.muted = NO;
@@ -176,7 +176,7 @@ static NSString * const kHSCRegistryItemsKey = @"kHSCRegistryItemsKey";
         [self.itemsAccessLock unlock];
         return;
     }
-    HSCInternalBundleModel *model = [self.items objectAtIndex: idx];
+    HSCInternalBundleModel *model = self.items[idx];
     [self.itemsAccessLock unlock];
     model.muted = YES;
 
@@ -191,7 +191,7 @@ static NSString * const kHSCRegistryItemsKey = @"kHSCRegistryItemsKey";
         [self.itemsAccessLock unlock];
         return;
     }
-    HSCInternalBundleModel *model = [self.items objectAtIndex: idx];
+    HSCInternalBundleModel *model = self.items[idx];
     [self.itemsAccessLock unlock];
     model.muted = NO;
 

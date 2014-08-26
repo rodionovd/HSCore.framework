@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0A0071ED19A6B01E00B31399 /* HSCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A8813AF19A0BA7700C55A02 /* HSCore.framework */; };
+		0A0071EF19A6B03A00B31399 /* HSCore.framework in Copy HSCore.framework */ = {isa = PBXBuildFile; fileRef = 0A8813AF19A0BA7700C55A02 /* HSCore.framework */; };
 		0A210D1919A293AE0088C624 /* HSCSharedNotifications.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A210D1719A293AE0088C624 /* HSCSharedNotifications.h */; };
 		0A210D1A19A293AE0088C624 /* HSCSharedNotifications.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A210D1719A293AE0088C624 /* HSCSharedNotifications.h */; };
 		0A210D1B19A293AE0088C624 /* HSCSharedNotifications.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A210D1819A293AE0088C624 /* HSCSharedNotifications.m */; };
@@ -31,10 +33,32 @@
 		0A5424A619A0C4F500445CEC /* HSCUnicornsPayload.dylib in Copy payload */ = {isa = PBXBuildFile; fileRef = 0A54248F19A0C46C00445CEC /* HSCUnicornsPayload.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		0A5424AA19A0C5BE00445CEC /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A5424A919A0C5BE00445CEC /* Cocoa.framework */; };
 		0A5424AB19A0C5CD00445CEC /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A5424A919A0C5BE00445CEC /* Cocoa.framework */; };
+		0A592FCB19A6AB900072D510 /* TableCellViewWithSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A592FCA19A6AB900072D510 /* TableCellViewWithSlider.m */; };
+		0A6DB38F19A6A474004B23B6 /* AppModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A6DB38D19A6A474004B23B6 /* AppModel.h */; };
+		0A6DB39019A6A474004B23B6 /* AppModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A6DB38E19A6A474004B23B6 /* AppModel.m */; };
 		0A8813B519A0BA7700C55A02 /* HSCore.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A8813B419A0BA7700C55A02 /* HSCore.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		0A89B8BB19A798C40036C638 /* rd_get_symbols.c in Sources */ = {isa = PBXBuildFile; fileRef = 0A89B8B919A798C40036C638 /* rd_get_symbols.c */; };
+		0A89B8BC19A798C40036C638 /* rd_get_symbols.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A89B8BA19A798C40036C638 /* rd_get_symbols.h */; };
+		0A89B8C419A79AAE0036C638 /* rd_route.c in Sources */ = {isa = PBXBuildFile; fileRef = 0A89B8C219A79AAE0036C638 /* rd_route.c */; };
+		0A89B8C519A79AAE0036C638 /* rd_route.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A89B8C319A79AAE0036C638 /* rd_route.h */; };
+		0ADE6B9819A530BF00F874EF /* HSCPayloadNotificationsObserver.h in Headers */ = {isa = PBXBuildFile; fileRef = 0ADE6B9619A530BF00F874EF /* HSCPayloadNotificationsObserver.h */; };
+		0ADE6B9919A530BF00F874EF /* HSCPayloadNotificationsObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ADE6B9719A530BF00F874EF /* HSCPayloadNotificationsObserver.m */; };
+		0ADE6BA019A5402100F874EF /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0ADE6B9F19A5402100F874EF /* CoreAudio.framework */; };
+		0ADE6BA219A5402900F874EF /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0ADE6BA119A5402900F874EF /* AudioToolbox.framework */; };
+		0AFA33FE19A7CED100ED43D2 /* HSCPayloadPatcher.h in Headers */ = {isa = PBXBuildFile; fileRef = 0AFA33FC19A7CED100ED43D2 /* HSCPayloadPatcher.h */; };
+		0AFA33FF19A7CED100ED43D2 /* HSCPayloadPatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AFA33FD19A7CED100ED43D2 /* HSCPayloadPatcher.m */; };
+		0AFA340319A9100600ED43D2 /* memory_patch.c in Sources */ = {isa = PBXBuildFile; fileRef = 0AFA340119A9100600ED43D2 /* memory_patch.c */; };
+		0AFA340419A9100600ED43D2 /* memory_patch.h in Headers */ = {isa = PBXBuildFile; fileRef = 0AFA340219A9100600ED43D2 /* memory_patch.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		0A0071E619A6B01600B31399 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0A8813A619A0BA7700C55A02 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0A8813AE19A0BA7700C55A02;
+			remoteInfo = HSCore;
+		};
 		0A3DEE6F19A1044000A14E0C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 0A8813A619A0BA7700C55A02 /* Project object */;
@@ -115,11 +139,22 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		0A54248319A0BB5C00445CEC /* Copy RDInjectionWizard */ = {
+		0A0071EE19A6B02800B31399 /* Copy HSCore.framework */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
+			files = (
+				0A0071EF19A6B03A00B31399 /* HSCore.framework in Copy HSCore.framework */,
+			);
+			name = "Copy HSCore.framework";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0A54248319A0BB5C00445CEC /* Copy RDInjectionWizard */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = ../Frameworks;
+			dstSubfolderSpec = 6;
 			files = (
 				0A54248419A0BB6A00445CEC /* RDInjectionWizard.framework in Copy RDInjectionWizard */,
 			);
@@ -164,11 +199,27 @@
 		0A54249119A0C46C00445CEC /* HSCUnicornsPayload.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSCUnicornsPayload.h; sourceTree = "<group>"; };
 		0A54249319A0C46C00445CEC /* HSCUnicornsPayload.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HSCUnicornsPayload.m; sourceTree = "<group>"; };
 		0A5424A919A0C5BE00445CEC /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		0A592FC919A6AB900072D510 /* TableCellViewWithSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableCellViewWithSlider.h; sourceTree = "<group>"; };
+		0A592FCA19A6AB900072D510 /* TableCellViewWithSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableCellViewWithSlider.m; sourceTree = "<group>"; };
+		0A6DB38D19A6A474004B23B6 /* AppModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppModel.h; sourceTree = "<group>"; };
+		0A6DB38E19A6A474004B23B6 /* AppModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppModel.m; sourceTree = "<group>"; };
 		0A8813AF19A0BA7700C55A02 /* HSCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HSCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A8813B319A0BA7700C55A02 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0A8813B419A0BA7700C55A02 /* HSCore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSCore.h; sourceTree = "<group>"; };
 		0A8813BA19A0BA7700C55A02 /* HSCoreTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HSCoreTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A8813BD19A0BA7700C55A02 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0A89B8B919A798C40036C638 /* rd_get_symbols.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = rd_get_symbols.c; path = rd_get_symbols/rd_get_symbols.c; sourceTree = SOURCE_ROOT; };
+		0A89B8BA19A798C40036C638 /* rd_get_symbols.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = rd_get_symbols.h; path = rd_get_symbols/rd_get_symbols.h; sourceTree = SOURCE_ROOT; };
+		0A89B8C219A79AAE0036C638 /* rd_route.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = rd_route.c; path = rd_route/rd_route.c; sourceTree = SOURCE_ROOT; };
+		0A89B8C319A79AAE0036C638 /* rd_route.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = rd_route.h; path = rd_route/rd_route.h; sourceTree = SOURCE_ROOT; };
+		0ADE6B9619A530BF00F874EF /* HSCPayloadNotificationsObserver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSCPayloadNotificationsObserver.h; sourceTree = "<group>"; };
+		0ADE6B9719A530BF00F874EF /* HSCPayloadNotificationsObserver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSCPayloadNotificationsObserver.m; sourceTree = "<group>"; };
+		0ADE6B9F19A5402100F874EF /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
+		0ADE6BA119A5402900F874EF /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		0AFA33FC19A7CED100ED43D2 /* HSCPayloadPatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSCPayloadPatcher.h; sourceTree = "<group>"; };
+		0AFA33FD19A7CED100ED43D2 /* HSCPayloadPatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSCPayloadPatcher.m; sourceTree = "<group>"; };
+		0AFA340119A9100600ED43D2 /* memory_patch.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = memory_patch.c; sourceTree = "<group>"; };
+		0AFA340219A9100600ED43D2 /* memory_patch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = memory_patch.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -176,6 +227,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0A0071ED19A6B01E00B31399 /* HSCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -183,6 +235,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0ADE6BA219A5402900F874EF /* AudioToolbox.framework in Frameworks */,
+				0ADE6BA019A5402100F874EF /* CoreAudio.framework in Frameworks */,
 				0A5424AA19A0C5BE00445CEC /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -231,6 +285,10 @@
 			children = (
 				0A3DEE5019A1041D00A14E0C /* AppDelegate.h */,
 				0A3DEE5119A1041D00A14E0C /* AppDelegate.m */,
+				0A592FC919A6AB900072D510 /* TableCellViewWithSlider.h */,
+				0A592FCA19A6AB900072D510 /* TableCellViewWithSlider.m */,
+				0A6DB38D19A6A474004B23B6 /* AppModel.h */,
+				0A6DB38E19A6A474004B23B6 /* AppModel.m */,
 				0A3DEE5319A1041D00A14E0C /* Images.xcassets */,
 				0A3DEE5519A1041D00A14E0C /* MainMenu.xib */,
 				0A3DEE4C19A1041D00A14E0C /* Supporting Files */,
@@ -266,6 +324,9 @@
 			children = (
 				0A54249119A0C46C00445CEC /* HSCUnicornsPayload.h */,
 				0A54249319A0C46C00445CEC /* HSCUnicornsPayload.m */,
+				0AFA340019A7CED500ED43D2 /* Patcher */,
+				0AFA33FB19A7CEB800ED43D2 /* Notifications Observer */,
+				0A89B8C619A79AB20036C638 /* Runtime utils */,
 			);
 			path = HSCUnicornsPayload;
 			sourceTree = "<group>";
@@ -273,6 +334,8 @@
 		0A5424AC19A0C5D100445CEC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0ADE6BA119A5402900F874EF /* AudioToolbox.framework */,
+				0ADE6B9F19A5402100F874EF /* CoreAudio.framework */,
 				0A5424A919A0C5BE00445CEC /* Cocoa.framework */,
 			);
 			name = Frameworks;
@@ -344,6 +407,37 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		0A89B8C619A79AB20036C638 /* Runtime utils */ = {
+			isa = PBXGroup;
+			children = (
+				0A89B8B919A798C40036C638 /* rd_get_symbols.c */,
+				0A89B8BA19A798C40036C638 /* rd_get_symbols.h */,
+				0A89B8C219A79AAE0036C638 /* rd_route.c */,
+				0A89B8C319A79AAE0036C638 /* rd_route.h */,
+				0AFA340119A9100600ED43D2 /* memory_patch.c */,
+				0AFA340219A9100600ED43D2 /* memory_patch.h */,
+			);
+			name = "Runtime utils";
+			sourceTree = "<group>";
+		};
+		0AFA33FB19A7CEB800ED43D2 /* Notifications Observer */ = {
+			isa = PBXGroup;
+			children = (
+				0ADE6B9619A530BF00F874EF /* HSCPayloadNotificationsObserver.h */,
+				0ADE6B9719A530BF00F874EF /* HSCPayloadNotificationsObserver.m */,
+			);
+			name = "Notifications Observer";
+			sourceTree = "<group>";
+		};
+		0AFA340019A7CED500ED43D2 /* Patcher */ = {
+			isa = PBXGroup;
+			children = (
+				0AFA33FC19A7CED100ED43D2 /* HSCPayloadPatcher.h */,
+				0AFA33FD19A7CED100ED43D2 /* HSCPayloadPatcher.m */,
+			);
+			name = Patcher;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -353,6 +447,11 @@
 			files = (
 				0A54249219A0C46C00445CEC /* HSCUnicornsPayload.h in Headers */,
 				0A210D1A19A293AE0088C624 /* HSCSharedNotifications.h in Headers */,
+				0A89B8C519A79AAE0036C638 /* rd_route.h in Headers */,
+				0ADE6B9819A530BF00F874EF /* HSCPayloadNotificationsObserver.h in Headers */,
+				0AFA33FE19A7CED100ED43D2 /* HSCPayloadPatcher.h in Headers */,
+				0AFA340419A9100600ED43D2 /* memory_patch.h in Headers */,
+				0A89B8BC19A798C40036C638 /* rd_get_symbols.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -360,6 +459,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0A6DB38F19A6A474004B23B6 /* AppModel.h in Headers */,
 				0A8813B519A0BA7700C55A02 /* HSCore.h in Headers */,
 				0A54248919A0C13200445CEC /* HSCVolumeMaster.h in Headers */,
 				0A210D1919A293AE0088C624 /* HSCSharedNotifications.h in Headers */,
@@ -378,10 +478,12 @@
 				0A3DEE4619A1041D00A14E0C /* Sources */,
 				0A3DEE4719A1041D00A14E0C /* Frameworks */,
 				0A3DEE4819A1041D00A14E0C /* Resources */,
+				0A0071EE19A6B02800B31399 /* Copy HSCore.framework */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				0A0071E719A6B01600B31399 /* PBXTargetDependency */,
 			);
 			name = TestsHostApp;
 			productName = TestsHostApp;
@@ -576,6 +678,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0A3DEE5219A1041D00A14E0C /* AppDelegate.m in Sources */,
+				0A592FCB19A6AB900072D510 /* TableCellViewWithSlider.m in Sources */,
 				0A3DEE4F19A1041D00A14E0C /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -584,8 +687,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0ADE6B9919A530BF00F874EF /* HSCPayloadNotificationsObserver.m in Sources */,
+				0AFA340319A9100600ED43D2 /* memory_patch.c in Sources */,
+				0AFA33FF19A7CED100ED43D2 /* HSCPayloadPatcher.m in Sources */,
 				0A210D1C19A293AE0088C624 /* HSCSharedNotifications.m in Sources */,
 				0A54249419A0C46C00445CEC /* HSCUnicornsPayload.m in Sources */,
+				0A89B8BB19A798C40036C638 /* rd_get_symbols.c in Sources */,
+				0A89B8C419A79AAE0036C638 /* rd_route.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -595,6 +703,7 @@
 			files = (
 				0A3DEE4319A1013000A14E0C /* HSCBundlesRegistry.m in Sources */,
 				0A3DEE3F19A0FFB300A14E0C /* HSCInternalBundleModel.m in Sources */,
+				0A6DB39019A6A474004B23B6 /* AppModel.m in Sources */,
 				0A210D1B19A293AE0088C624 /* HSCSharedNotifications.m in Sources */,
 				0A54248A19A0C13200445CEC /* HSCVolumeMaster.m in Sources */,
 			);
@@ -613,6 +722,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		0A0071E719A6B01600B31399 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0A8813AE19A0BA7700C55A02 /* HSCore */;
+			targetProxy = 0A0071E619A6B01600B31399 /* PBXContainerItemProxy */;
+		};
 		0A3DEE7019A1044000A14E0C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 0A3DEE4919A1041D00A14E0C /* TestsHostApp */;
@@ -719,6 +833,7 @@
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -736,6 +851,7 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_PEDANTIC = NO;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
@@ -764,6 +880,7 @@
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -774,8 +891,10 @@
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PREPROCESSOR_DEFINITIONS = "NDEBUG=1";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_PEDANTIC = NO;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
@@ -785,6 +904,7 @@
 				SDKROOT = macosx;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
+				WARNING_CFLAGS = "";
 			};
 			name = Release;
 		};
@@ -798,7 +918,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = HSCore/Info.plist;
-				INSTALL_PATH = "@executable_path/../Frameworks";
+				INSTALL_PATH = "@rpath";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -815,7 +935,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = HSCore/Info.plist;
-				INSTALL_PATH = "@executable_path/../Frameworks";
+				INSTALL_PATH = "@rpath";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
