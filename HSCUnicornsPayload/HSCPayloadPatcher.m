@@ -310,7 +310,6 @@ static OSStatus HS_AQMEIO_IOProc(AudioDeviceID device, AudioTimeStamp *now,
     }
 
     CGFloat level = [[HSCPayloadNotificationsObserver observer] volumeLevel];
-    if (level == 0.0f) level = 1.0f; // something strange did happen to the observer
     for (uint32_t idx = 0; idx < buffersCount; idx++) {
         float *muted_data = (float *)(output_data->mBuffers[idx].mData);
         if (!muted_data) continue;
@@ -353,7 +352,6 @@ static OSStatus muter_IOProc(AudioDeviceID device, const AudioTimeStamp *now,
     }
 
     CGFloat level = [[HSCPayloadNotificationsObserver observer] volumeLevel];
-    if (level == 0.0f) level = 1.0f;
     for (uint32_t idx = 0; idx < buffersCount; idx++) {
         float *muted_data = (float *)(output_data->mBuffers[idx].mData);
         if (!muted_data) continue;
