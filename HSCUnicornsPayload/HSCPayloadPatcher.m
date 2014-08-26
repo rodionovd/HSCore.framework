@@ -311,8 +311,11 @@ static OSStatus HS_AQMEIO_IOProc(AudioDeviceID device, AudioTimeStamp *now,
 
     HSCPayloadNotificationsObserver *observer = [HSCPayloadNotificationsObserver observer];
     // In case the observer failed to initialize
-    CGFloat level = observer ? [observer volumeLevel] : 1.0f;
+    if (!observer) {
+        return KERN_SUCCESS;
+    }
 
+    CGFloat level = [observer volumeLevel];
     for (uint32_t idx = 0; idx < buffersCount; idx++) {
         float *muted_data = (float *)(output_data->mBuffers[idx].mData);
         if (!muted_data) continue;
@@ -355,8 +358,11 @@ static OSStatus muter_IOProc(AudioDeviceID device, const AudioTimeStamp *now,
     }
 
     HSCPayloadNotificationsObserver *observer = [HSCPayloadNotificationsObserver observer];
-    CGFloat level = observer ? [observer volumeLevel] : 1.0f;
+    if (!observer) {
+        return KERN_SUCCESS;
+    }
 
+    CGFloat level = [observer volumeLevel];
     for (uint32_t idx = 0; idx < buffersCount; idx++) {
         float *muted_data = (float *)(output_data->mBuffers[idx].mData);
         if (!muted_data) continue;
