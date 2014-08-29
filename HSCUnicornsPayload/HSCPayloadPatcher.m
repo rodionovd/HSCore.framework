@@ -18,6 +18,8 @@
 #import "memory_patch.h"
 #import "rd_route.h"
 
+#define IOProcListItemSize 0x60
+/* See a comment in hook_IOProc() for details */
 static CFMutableDictionaryRef callbacks_dictionary = NULL;
 
 /** Private CoreAudio stuff */
@@ -133,7 +135,6 @@ static void hook_IOProc(AudioDeviceIOProc callback);
         hook_IOProc(original_imp);
 
         /* Go to next list item */
-        #define IOProcListItemSize 0x60
         IOProcListPtr += IOProcListItemSize;
     }
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
