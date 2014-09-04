@@ -14,7 +14,6 @@
 
 + (void)load
 {
-    NSLog(@"Hello from %@", [[NSRunningApplication currentApplication] localizedName]);
     dispatch_async(dispatch_get_main_queue(), ^{
         [HSCPayloadNotificationsObserver observer];
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)),
