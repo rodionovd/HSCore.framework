@@ -66,7 +66,7 @@
     NSRunningApplication *app = notification.userInfo[NSWorkspaceApplicationKey];
     NSString *bundleID = app.bundleIdentifier;
     if ([[self.class safariRelatedBundleIDs] containsObject: bundleID]) {
-        /* Let the browser create its sub-proccesses */
+        /* Let the browser create its sub-processes */
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(kDelayBeforeLazyInjection * NSEC_PER_SEC)),
                        dispatch_get_main_queue(), ^{
             NSArray *targets = [self.class safariRelatedProcesses];
