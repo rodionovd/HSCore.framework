@@ -7,13 +7,14 @@
 //
 
 #import "HSCVolumeMaster.h"
+#import "HSCVolumeMaster+Private.h"
+#import "HSCVolumeMaster+Browsers.h"
 #import "HSCBundlesRegistry.h"
 #import "HSCSharedNotifications.h"
 #import <RDInjectionWizard/RDInjectionWizard.h>
 
 #define kMaxVolumeLevel (1.0)
 #define kDelayBeforeLazyInjection (3)
-#define kMaxVolumeLevelDiffToSayTheyAreDifferent (0.01)
 static char * const kHSCCallbacksQueueLabel = "com.HoneySound.HSCore.HSCVolumeMaster.callbacksQueue";
 static NSString * const kHSCRegistryItemsKey = @"kHSCRegistryItemsKey";
 
@@ -21,13 +22,6 @@ static NSString * const kHSCRegistryItemsKey = @"kHSCRegistryItemsKey";
 @property (strong) HSCBundlesRegistry *registry;
 @property (strong) NSLock *registryTestLock;
 @property (strong) dispatch_queue_t callbacksQueue;
-
-- (void)_initializeBundle: (NSString *)bundleID
-              volumeLevel: (CGFloat)volume
-               completion: (void(^)(BOOL succeeded))handler;
-
-- (void)_publishVolumeChangesForBundle: (NSString *)bundleID;
-- (void)_injectBundle: (NSString *)bundleID completion: (void(^)(BOOL succeeded))handler;
 @end
 
 @implementation HSCVolumeMaster
@@ -70,30 +64,16 @@ static NSString * const kHSCRegistryItemsKey = @"kHSCRegistryItemsKey";
         });
         return;
     }
-    CGFloat oldLevel = [self.registry volumeLevelForBundle: bundleID];
-    CGFloat newLevel = fabs(level);
-    if (newLevel > kMaxVolumeLevel) {
-        // Convert [0..100] range to [0..1]
-        newLevel /= 100;
-    }
-    [self.registryTestLock lock];
-    if ([self.registry containsBundle: bundleID] == NO) {
-        // perform initial inject
-        [self.registry addBundle: bundleID];
-        [self _initializeBundle: bundleID volumeLevel: newLevel completion: handler];
-        [self.registryTestLock unlock];
-        return;
-    }
-    [self.registryTestLock unlock];
 
-    // check if current sound level != new level
-    if (fabs(oldLevel - newLevel) < kMaxVolumeLevelDiffToSayTheyAreDifferent) {
-        dispatch_async(self.callbacksQueue, ^{
-            if (handler) handler(YES);
-        });
+    CGFloat newLevel = [self.class _normalizeVolumeLevel: level];
+    BOOL just_registered = [self _registerBundleIfNeeded: bundleID
+                                         withVolumeLevel: newLevel];
+    if (just_registered) {
+        [self _initializeBundle: bundleID
+                    volumeLevel: newLevel
+                     completion: handler];
         return;
     }
-    [self.registry setVolumeLevel: newLevel forBundle: bundleID];
     [self _publishVolumeChangesForBundle: bundleID];
     dispatch_async(self.callbacksQueue, ^{
         if (handler) handler(YES);
@@ -191,7 +171,7 @@ static NSString * const kHSCRegistryItemsKey = @"kHSCRegistryItemsKey";
     dispatch_group_t group = dispatch_group_create();
     dispatch_queue_t queue = dispatch_queue_create(NULL, DISPATCH_QUEUE_CONCURRENT);
 
-    NSMutableArray *failes = [NSMutableArray arrayWithCapacity: count];
+    NSMutableArray *failures = [NSMutableArray arrayWithCapacity: count];
     NSArray *bundles = bundlesInformation.allKeys;
     [bundles enumerateObjectsUsingBlock: ^(NSString *item, NSUInteger idx, BOOL *stop) {
         dispatch_group_wait(group, (kDelayBeforeLazyInjection * NSEC_PER_SEC));
@@ -199,7 +179,7 @@ static NSString * const kHSCRegistryItemsKey = @"kHSCRegistryItemsKey";
         dispatch_group_async(group, queue, ^{
             [self setVolumeLevel: [bundlesInformation[item] doubleValue] forBundle: item completion: ^(BOOL succeeded) {
                 if (!succeeded) {
-                    [failes addObject: item];
+                    [failures addObject: item];
                 }
                 dispatch_group_leave(group);
             }];
@@ -207,10 +187,10 @@ static NSString * const kHSCRegistryItemsKey = @"kHSCRegistryItemsKey";
     }];
     dispatch_group_notify(group, queue, ^{
         dispatch_async(self.callbacksQueue, ^{
-            if (failes.count == 0) {
+            if (failures.count == 0) {
                 if (handler) handler();
             } else {
-                if (failure) failure(failes);
+                if (failure) failure(failures);
             }
         });
     });
@@ -252,6 +232,28 @@ static NSString * const kHSCRegistryItemsKey = @"kHSCRegistryItemsKey";
 
 #pragma mark - Private implementation
 
+- (BOOL)_registerBundleIfNeeded: (NSString *)bundleID withVolumeLevel: (CGFloat)level
+{
+    BOOL just_registered = NO;
+    if ([self.registry containsBundle: bundleID] == NO) {
+        [self.registry addBundle: bundleID];
+        just_registered = YES;
+    }
+    [self.registry setVolumeLevel: level forBundle: bundleID];
+
+    return just_registered;
+}
+
+/** Convert [0..100] range to [0..1] */
++ (CGFloat)_normalizeVolumeLevel: (CGFloat)level
+{
+    CGFloat newLevel = fabs(level);
+    if (newLevel > kMaxVolumeLevel) {
+        newLevel /= 100;
+    }
+    return newLevel;
+}
+
 - (void)_someApplicationDidLaunch: (NSNotification *)notification
 {
     NSRunningApplication *app = notification.userInfo[NSWorkspaceApplicationKey];
@@ -264,19 +266,18 @@ static NSString * const kHSCRegistryItemsKey = @"kHSCRegistryItemsKey";
         // we don't need this target to be injected right now, so do it lazily
         delay_sec = kDelayBeforeLazyInjection;
     }
-    NSLog(@"Dispatch reinjection of <%@> in %ds", bundleID, delay_sec);
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay_sec * NSEC_PER_SEC)),
-                   dispatch_get_main_queue(), ^{
-        // initial injection for this instance of the application
-                       NSLog(@"REINJECTION <%@>", bundleID);
-        [self _injectBundle: bundleID completion: ^(BOOL succeeded) {
-            if (!succeeded) {
-                NSLog(@"Unable to re-inject <%@>", bundleID);
-            } else {
-                [self _publishVolumeChangesForBundle: bundleID];
-            }
-        }];
-    });
+                   dispatch_get_main_queue(),
+                   ^{
+                       // initial injection for this instance of the application
+                       [self _injectBundle: bundleID completion: ^(BOOL succeeded) {
+                           if (!succeeded) {
+                               NSLog(@"Unable to re-inject <%@>", bundleID);
+                           } else {
+                               [self _publishVolumeChangesForBundle: bundleID];
+                           }
+                       }];
+                   });
 }
 
 - (void)_initializeBundle: (NSString *)bundleID
@@ -301,13 +302,15 @@ static NSString * const kHSCRegistryItemsKey = @"kHSCRegistryItemsKey";
     NSDictionary *userInfo = @{kHSKUserInfoBundleIDKey : bundleID,
                                kHSKUserInfoVolumeLevelKey : @(volumeLevel)};
     NSDistributedNotificationCenter *center = [NSDistributedNotificationCenter defaultCenter];
-    [center postNotificationName: kHSCVolumeChangeNotificationName object: nil userInfo: userInfo];
+    [center postNotificationName: kHSCVolumeChangeNotificationName
+                          object: nil
+                        userInfo: userInfo];
 }
 
 #pragma mark - Code injection
 
 - (void)_injectBundle: (NSString *)bundleID
-           completion: (void(^)(BOOL succeeded))handler;
+           completion: (void(^)(BOOL succeeded))handler
 {
     NSArray *instances = [NSRunningApplication runningApplicationsWithBundleIdentifier: bundleID];
     if (instances.count == 0) {
@@ -317,8 +320,14 @@ static NSString * const kHSCRegistryItemsKey = @"kHSCRegistryItemsKey";
         });
         return;
     }
-    dispatch_group_t group = dispatch_group_create();
-    dispatch_queue_t queue = dispatch_queue_create(NULL, DISPATCH_QUEUE_SERIAL);
+    [self _injectProcesses: instances
+                completion: handler];
+}
+
+- (void)_injectProcesses: (NSArray *)processes
+              completion: (void(^)(BOOL succeeded))handler
+{
+    assert(processes.count > 0);
 
     NSString *payload = [[NSBundle bundleForClass: self.class] pathForResource: @"HSCUnicornsPayload"
                                                                         ofType: @"dylib"];
@@ -326,18 +335,21 @@ static NSString * const kHSCRegistryItemsKey = @"kHSCRegistryItemsKey";
         @throw [NSException exceptionWithName: @"Fuck this" reason: @"Where's my payload?" userInfo: nil];
         return;
     }
-    __block int fails = 0;
-    [instances enumerateObjectsUsingBlock: ^(NSRunningApplication *application, NSUInteger idx, BOOL *stop) {
+
+    dispatch_group_t group = dispatch_group_create();
+    dispatch_queue_t queue = dispatch_queue_create(NULL, DISPATCH_QUEUE_SERIAL);
+    __block int failures = 0;
+    [processes enumerateObjectsUsingBlock: ^(NSRunningApplication *item, NSUInteger idx, BOOL *stop) {
         dispatch_group_enter(group);
         dispatch_group_async(group, queue, ^{
-            pid_t target = application.processIdentifier;
+            pid_t target = [item processIdentifier];
             RDInjectionWizard *wizard = [[RDInjectionWizard alloc] initWithTarget: target
                                                                           payload: payload];
             [wizard injectUsingCompletionBlockWithSuccess: ^{
                 dispatch_group_leave(group);
             } failure: ^(RDInjectionError error) {
-                ++fails;
-                NSLog(@"Error: {%d}, %@", error, application);
+                ++failures;
+                NSLog(@"Error: {PID: %d}, error: %d", target, error);
                 dispatch_group_leave(group);
             }];
         });
@@ -345,7 +357,7 @@ static NSString * const kHSCRegistryItemsKey = @"kHSCRegistryItemsKey";
 
     dispatch_group_notify(group, queue, ^{
         dispatch_async(self.callbacksQueue, ^{
-            if (handler) handler(fails == 0);
+            if (handler) handler(failures == 0);
         });
     });
 }

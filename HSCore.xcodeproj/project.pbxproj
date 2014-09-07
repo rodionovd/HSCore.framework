@@ -41,6 +41,9 @@
 		0A89B8BC19A798C40036C638 /* rd_get_symbols.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A89B8BA19A798C40036C638 /* rd_get_symbols.h */; };
 		0A89B8C419A79AAE0036C638 /* rd_route.c in Sources */ = {isa = PBXBuildFile; fileRef = 0A89B8C219A79AAE0036C638 /* rd_route.c */; };
 		0A89B8C519A79AAE0036C638 /* rd_route.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A89B8C319A79AAE0036C638 /* rd_route.h */; };
+		0AD877E919B5616500697019 /* HSCVolumeMaster+Browsers.h in Headers */ = {isa = PBXBuildFile; fileRef = 0AD877E719B5616500697019 /* HSCVolumeMaster+Browsers.h */; };
+		0AD877EA19B5616500697019 /* HSCVolumeMaster+Browsers.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AD877E819B5616500697019 /* HSCVolumeMaster+Browsers.m */; };
+		0AD877F319B6EFCD00697019 /* HSCVolumeMaster+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 0AD877F119B6EFCD00697019 /* HSCVolumeMaster+Private.h */; };
 		0ADE6B9819A530BF00F874EF /* HSCPayloadNotificationsObserver.h in Headers */ = {isa = PBXBuildFile; fileRef = 0ADE6B9619A530BF00F874EF /* HSCPayloadNotificationsObserver.h */; };
 		0ADE6B9919A530BF00F874EF /* HSCPayloadNotificationsObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ADE6B9719A530BF00F874EF /* HSCPayloadNotificationsObserver.m */; };
 		0ADE6BA019A5402100F874EF /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0ADE6B9F19A5402100F874EF /* CoreAudio.framework */; };
@@ -212,6 +215,9 @@
 		0A89B8BA19A798C40036C638 /* rd_get_symbols.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = rd_get_symbols.h; path = rd_get_symbols/rd_get_symbols.h; sourceTree = SOURCE_ROOT; };
 		0A89B8C219A79AAE0036C638 /* rd_route.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = rd_route.c; path = rd_route/rd_route.c; sourceTree = SOURCE_ROOT; };
 		0A89B8C319A79AAE0036C638 /* rd_route.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = rd_route.h; path = rd_route/rd_route.h; sourceTree = SOURCE_ROOT; };
+		0AD877E719B5616500697019 /* HSCVolumeMaster+Browsers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "HSCVolumeMaster+Browsers.h"; sourceTree = "<group>"; };
+		0AD877E819B5616500697019 /* HSCVolumeMaster+Browsers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "HSCVolumeMaster+Browsers.m"; sourceTree = "<group>"; };
+		0AD877F119B6EFCD00697019 /* HSCVolumeMaster+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "HSCVolumeMaster+Private.h"; sourceTree = "<group>"; };
 		0ADE6B9619A530BF00F874EF /* HSCPayloadNotificationsObserver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSCPayloadNotificationsObserver.h; sourceTree = "<group>"; };
 		0ADE6B9719A530BF00F874EF /* HSCPayloadNotificationsObserver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSCPayloadNotificationsObserver.m; sourceTree = "<group>"; };
 		0ADE6B9F19A5402100F874EF /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
@@ -371,6 +377,8 @@
 				0A8813B419A0BA7700C55A02 /* HSCore.h */,
 				0A54248719A0C13200445CEC /* HSCVolumeMaster.h */,
 				0A54248819A0C13200445CEC /* HSCVolumeMaster.m */,
+				0AD877F119B6EFCD00697019 /* HSCVolumeMaster+Private.h */,
+				0AE62BC219B06C2700793A92 /* App-specific stuff */,
 				0A3DEE4419A1027D00A14E0C /* Registry */,
 				0A8813B219A0BA7700C55A02 /* Supporting Files */,
 			);
@@ -420,6 +428,15 @@
 			name = "Runtime utils";
 			sourceTree = "<group>";
 		};
+		0AE62BC219B06C2700793A92 /* App-specific stuff */ = {
+			isa = PBXGroup;
+			children = (
+				0AD877E719B5616500697019 /* HSCVolumeMaster+Browsers.h */,
+				0AD877E819B5616500697019 /* HSCVolumeMaster+Browsers.m */,
+			);
+			name = "App-specific stuff";
+			sourceTree = "<group>";
+		};
 		0AFA33FB19A7CEB800ED43D2 /* Notifications Observer */ = {
 			isa = PBXGroup;
 			children = (
@@ -460,10 +477,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				0A6DB38F19A6A474004B23B6 /* AppModel.h in Headers */,
-				0A8813B519A0BA7700C55A02 /* HSCore.h in Headers */,
 				0A54248919A0C13200445CEC /* HSCVolumeMaster.h in Headers */,
+				0A8813B519A0BA7700C55A02 /* HSCore.h in Headers */,
+				0AD877E919B5616500697019 /* HSCVolumeMaster+Browsers.h in Headers */,
 				0A210D1919A293AE0088C624 /* HSCSharedNotifications.h in Headers */,
 				0A3DEE4219A1013000A14E0C /* HSCBundlesRegistry.h in Headers */,
+				0AD877F319B6EFCD00697019 /* HSCVolumeMaster+Private.h in Headers */,
 				0A3DEE3E19A0FFB300A14E0C /* HSCInternalBundleModel.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -703,6 +722,7 @@
 			files = (
 				0A3DEE4319A1013000A14E0C /* HSCBundlesRegistry.m in Sources */,
 				0A3DEE3F19A0FFB300A14E0C /* HSCInternalBundleModel.m in Sources */,
+				0AD877EA19B5616500697019 /* HSCVolumeMaster+Browsers.m in Sources */,
 				0A6DB39019A6A474004B23B6 /* AppModel.m in Sources */,
 				0A210D1B19A293AE0088C624 /* HSCSharedNotifications.m in Sources */,
 				0A54248A19A0C13200445CEC /* HSCVolumeMaster.m in Sources */,
