@@ -34,6 +34,8 @@
 		0A5424AA19A0C5BE00445CEC /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A5424A919A0C5BE00445CEC /* Cocoa.framework */; };
 		0A5424AB19A0C5CD00445CEC /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A5424A919A0C5BE00445CEC /* Cocoa.framework */; };
 		0A592FCB19A6AB900072D510 /* TableCellViewWithSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A592FCA19A6AB900072D510 /* TableCellViewWithSlider.m */; };
+		0A5C57AB19BC34FB0090EAF5 /* HSCRunningApplication.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A5C57A919BC34FB0090EAF5 /* HSCRunningApplication.h */; };
+		0A5C57AC19BC34FB0090EAF5 /* HSCRunningApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A5C57AA19BC34FB0090EAF5 /* HSCRunningApplication.m */; };
 		0A6DB38F19A6A474004B23B6 /* AppModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A6DB38D19A6A474004B23B6 /* AppModel.h */; };
 		0A6DB39019A6A474004B23B6 /* AppModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A6DB38E19A6A474004B23B6 /* AppModel.m */; };
 		0A8813B519A0BA7700C55A02 /* HSCore.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A8813B419A0BA7700C55A02 /* HSCore.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -204,6 +206,8 @@
 		0A5424A919A0C5BE00445CEC /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		0A592FC919A6AB900072D510 /* TableCellViewWithSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableCellViewWithSlider.h; sourceTree = "<group>"; };
 		0A592FCA19A6AB900072D510 /* TableCellViewWithSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableCellViewWithSlider.m; sourceTree = "<group>"; };
+		0A5C57A919BC34FB0090EAF5 /* HSCRunningApplication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSCRunningApplication.h; sourceTree = "<group>"; };
+		0A5C57AA19BC34FB0090EAF5 /* HSCRunningApplication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSCRunningApplication.m; sourceTree = "<group>"; };
 		0A6DB38D19A6A474004B23B6 /* AppModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppModel.h; sourceTree = "<group>"; };
 		0A6DB38E19A6A474004B23B6 /* AppModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppModel.m; sourceTree = "<group>"; };
 		0A8813AF19A0BA7700C55A02 /* HSCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HSCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -433,6 +437,8 @@
 			children = (
 				0AD877E719B5616500697019 /* HSCVolumeMaster+Browsers.h */,
 				0AD877E819B5616500697019 /* HSCVolumeMaster+Browsers.m */,
+				0A5C57A919BC34FB0090EAF5 /* HSCRunningApplication.h */,
+				0A5C57AA19BC34FB0090EAF5 /* HSCRunningApplication.m */,
 			);
 			name = "App-specific stuff";
 			sourceTree = "<group>";
@@ -481,6 +487,7 @@
 				0A8813B519A0BA7700C55A02 /* HSCore.h in Headers */,
 				0AD877E919B5616500697019 /* HSCVolumeMaster+Browsers.h in Headers */,
 				0A210D1919A293AE0088C624 /* HSCSharedNotifications.h in Headers */,
+				0A5C57AB19BC34FB0090EAF5 /* HSCRunningApplication.h in Headers */,
 				0A3DEE4219A1013000A14E0C /* HSCBundlesRegistry.h in Headers */,
 				0AD877F319B6EFCD00697019 /* HSCVolumeMaster+Private.h in Headers */,
 				0A3DEE3E19A0FFB300A14E0C /* HSCInternalBundleModel.h in Headers */,
@@ -725,6 +732,7 @@
 				0AD877EA19B5616500697019 /* HSCVolumeMaster+Browsers.m in Sources */,
 				0A6DB39019A6A474004B23B6 /* AppModel.m in Sources */,
 				0A210D1B19A293AE0088C624 /* HSCSharedNotifications.m in Sources */,
+				0A5C57AC19BC34FB0090EAF5 /* HSCRunningApplication.m in Sources */,
 				0A54248A19A0C13200445CEC /* HSCVolumeMaster.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

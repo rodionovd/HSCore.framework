@@ -6,11 +6,13 @@
 //  Copyright (c) 2014 HoneySound. All rights reserved.
 //
 
+#import <libproc.h>
 #import <objc/runtime.h>
+#import "HSCRunningApplication.h"
 #import "HSCVolumeMaster+Private.h"
 #import "HSCVolumeMaster+Browsers.h"
 
-#define kDelayBeforeLazyInjection (2)
+#define kDelayTimeout (2)
 
 @implementation HSCVolumeMaster (Browsers)
 
@@ -67,7 +69,7 @@
     NSString *bundleID = app.bundleIdentifier;
     if ([[self.class safariRelatedBundleIDs] containsObject: bundleID]) {
         /* Let the browser create its sub-processes */
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(kDelayBeforeLazyInjection * NSEC_PER_SEC)),
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(kDelayTimeout * NSEC_PER_SEC)),
                        dispatch_get_main_queue(), ^{
             NSArray *targets = [self.class safariRelatedProcesses];
             [targets enumerateObjectsUsingBlock: ^(NSRunningApplication *item, NSUInteger idx, BOOL *stop) {
@@ -93,7 +95,7 @@
     NSMutableArray *failures = [NSMutableArray new];
     NSArray *bundles = [self.class safariRelatedBundleIDs];
     [bundles enumerateObjectsUsingBlock: ^(NSString *item, NSUInteger idx, BOOL *stop) {
-        dispatch_group_wait(group, (kDelayBeforeLazyInjection * NSEC_PER_SEC));
+        dispatch_group_wait(group, (kDelayTimeout * NSEC_PER_SEC));
         dispatch_group_enter(group);
         dispatch_group_async(group, queue, ^{
             [self browsers_setVolumeLevel: level
@@ -122,7 +124,7 @@
 - (void)setChromeVolumeLevel: (CGFloat)level
                   completion: (void(^)(BOOL succeeded))handler
 {
-    NSAssert(NO, @"Chrome's helper processes are not listed as Cocoa apps, so NSRunningApplication can't handle them");
+    NSLog(@"%@", [self.class chromeRelatedProcesses]);
 }
 
 
@@ -144,9 +146,15 @@
     NSArray *targets = [self safariRelatedBundleIDs];
     NSPredicate *onlySafaryStuff = [NSPredicate predicateWithFormat:
                                     @"localizedName CONTAINS 'Safari'"];
+    NSMutableArray *results = [NSMutableArray new];
+    [targets enumerateObjectsUsingBlock: ^(NSString *item, NSUInteger idx, BOOL *stop) {
+        NSArray *apps = [NSRunningApplication runningApplicationsWithBundleIdentifier: item];
+        [results addObjectsFromArray: [apps filteredArrayUsingPredicate: onlySafaryStuff]];
+    }];
 
-    return [self _filterProcesses: targets withPredicate: onlySafaryStuff];
+    return results;
 }
+
 + (NSArray *)safariRelatedBundleIDs
 {
     return @[@"com.apple.Safari", @"com.apple.WebKit.WebContent", @"com.apple.WebKit.PluginProcess"];
@@ -159,35 +167,55 @@
  * This list includes:
  * -- all instances of Chrome Helpers;
  * @return
- * An array of NSRunningApplication objects; it may be empty.
+ * An array of NSRunningApplication (HSCRunningApplication) objects; it may be empty.
  */
 + (NSArray *)chromeRelatedProcesses
 {
     NSArray *targets = [self chromeRelatedBundleIDs];
-    return [self _filterProcesses: targets withPredicate: nil];
+    NSMutableArray *procs = [NSMutableArray new];
+    /**
+     * Since Chrome processes aren't registered with LaunchServices
+     * we can't list them via NSRunningApplication API.
+     * So fallback to iterating proc_listpids()'s list to find them out.
+     */
+    int procs_count = proc_listpids(PROC_ALL_PIDS, 0, NULL, 0);
+    int size = sizeof(pid_t) * procs_count;
+    pid_t *pid_list = malloc(size);
+    int err = proc_listpids(PROC_ALL_PIDS, 0, pid_list, size);
+    if (err <= 0) {
+        return @[];
+    }
+    for (int i = 0; i < procs_count && (pid_list[i] != 0); ++i) {
+        int buffer_size = sizeof(char) * PROC_PIDPATHINFO_MAXSIZE;
+        char *buffer = malloc(buffer_size);
+        err = proc_pidpath(pid_list[i], buffer, buffer_size);
+        if (err <= 0 || strlen(buffer) == 0) {
+            continue;
+        }
+        @autoreleasepool {
+            NSString *str = [NSString stringWithUTF8String: buffer];
+            NSUInteger idx = [str rangeOfString: @"Contents/MacOS"].location;
+            if (idx == NSNotFound) {
+                continue;
+            }
+            NSString *path = [str substringToIndex: idx];
+            NSBundle *bundle = [NSBundle bundleWithPath: path];
+            if ([targets containsObject: bundle.bundleIdentifier]) {
+                HSCRunningApplication *app =
+                [HSCRunningApplication applicationWithProcessIdentifier: pid_list[i]
+                                                        bundleIdentifer: bundle.bundleIdentifier];
+                [procs addObject: app];
+            }
+
+        }
+    }
+    return procs;
 }
 + (NSArray *)chromeRelatedBundleIDs
 {
     return @[@"org.chromium.pdf_plugin",
              @"com.macromedia.PepperFlashPlayer.pepper", @"com.google.Chrome.helper",
              @"com.google.Chrome.helper.EH", @"com.google.Chrome.helper.NP",];
-}
-
-#pragma mark Filter
-
-+ (NSArray *)_filterProcesses: (NSArray *)bundleIDs withPredicate: (NSPredicate *)predicate
-{
-    NSMutableArray *results = [NSMutableArray new];
-    [bundleIDs enumerateObjectsUsingBlock: ^(NSString *item, NSUInteger idx, BOOL *stop) {
-        NSArray *apps = [NSRunningApplication runningApplicationsWithBundleIdentifier: item];
-        if (!predicate) {
-            [results addObjectsFromArray: apps];
-        } else {
-            [results addObjectsFromArray: [apps filteredArrayUsingPredicate: predicate]];
-        }
-    }];
-    
-    return results;
 }
 
 @end
