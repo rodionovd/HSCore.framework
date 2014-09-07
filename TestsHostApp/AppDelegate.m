@@ -130,6 +130,15 @@
 {
     [URLs enumerateObjectsUsingBlock: ^(NSURL *url, NSUInteger idx, BOOL *stop) {
         AppModel *model = [AppModel modelWithURL: url];
+
+        NSUInteger index = [self.applications indexOfObjectPassingTest:
+                            ^BOOL(AppModel *item, NSUInteger idx, BOOL *stop) {
+                                return (item.bundleID == model.bundleID);
+                            }];
+        if (index != NSNotFound) {
+            return;
+        }
+
         if (model) {
             [self.applications addObject: model];
             [[HSCVolumeMaster sharedMaster] setVolumeLevel: 1.0
