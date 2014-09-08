@@ -9,127 +9,117 @@
 #import <libproc.h>
 #import <objc/runtime.h>
 #import "HSCRunningApplication.h"
+#import "HSCSharedNotifications.h"
 #import "HSCVolumeMaster+Private.h"
 #import "HSCVolumeMaster+Browsers.h"
 
 #define kDelayTimeout (2)
+#define kSafariMainBundleID @"com.apple.Safari"
+#define kChromeMainBundleID @"com.google.Chrome"
 
-@implementation HSCVolumeMaster (Browsers)
+static NSArray* HSCSafariBundleIDs(void);
+static NSArray* HSCChromeBundleIDs(void);
+static NSArray* HSCSafariProcesses(void);
+static NSArray* HSCChromeProcesses(void);
 
-#pragma mark - Method swizzling
+@implementation NSRunningApplication (Browsers)
 
 + (void)load
 {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        /* Replace -setVolumeLevel:forBundle:completion: */
-        Method original_setVolume =
-            class_getInstanceMethod(self, @selector(setVolumeLevel:forBundle:completion:));
-        Method hook_setVolume =
-            class_getInstanceMethod(self, @selector(browsers_setVolumeLevel:forBundle:completion:));
-        if (!original_setVolume || !hook_setVolume) {
+        /* Replace +runningApplicationsWithBundleIdentifier: */
+        Method original_sel =
+        class_getInstanceMethod(objc_getMetaClass(class_getName(self.class)),
+                                @selector(runningApplicationsWithBundleIdentifier:));
+        Method hook_sel =
+        class_getClassMethod(objc_getMetaClass(class_getName(self.class)),
+                             @selector(browsers_runningApplicationsWithBundleIdentifier:));
+        if (!original_sel || !hook_sel) {
             return;
         }
-        method_exchangeImplementations(original_setVolume, hook_setVolume);
-
-        /* Replace -_someApplicationDidLaunch: */
-        Method original_didLaunch =
-            class_getInstanceMethod(self,  @selector(_someApplicationDidLaunch:));
-        Method hook_didLaunch =
-            class_getInstanceMethod(self, @selector(browsers_someApplicationDidLaunch:));
-        if (!original_didLaunch || !hook_didLaunch) {
-            return;
-        }
-        method_exchangeImplementations(original_didLaunch, hook_didLaunch);
+        method_exchangeImplementations(original_sel, hook_sel);
     });
 }
 
-- (void)browsers_setVolumeLevel: (CGFloat)level
-                      forBundle: (NSString *)bundleID
-                     completion: (void(^)(BOOL succeeded))handler
++ (NSArray *)browsers_runningApplicationsWithBundleIdentifier: (NSString *)bundleIdentifier
 {
-    CGFloat normalizedLevel = [self.class _normalizeVolumeLevel: level];
-    if ([bundleID isEqualToString: @"com.apple.Safari"]) {
-        [self setSafariVolumeLevel: level completion: handler];
-        return;
+    NSLog(@"requested %@", bundleIdentifier);
+    if ([bundleIdentifier isEqualToString: kSafariMainBundleID]) {
+        return HSCSafariProcesses();
     }
-    if ([bundleID isEqualToString: @"com.google.Chrome"]) {
-        [self setChromeVolumeLevel: normalizedLevel completion: handler];
-        return;
+    if ([bundleIdentifier isEqualToString: kChromeMainBundleID]) {
+        NSAssert(NO, @"Google Chrome muting is not supported yet");
+        return HSCChromeProcesses();
     }
-    /* Fallback to original method */
-    [self browsers_setVolumeLevel: level
-                        forBundle: bundleID
-                       completion: handler];
+
+    return [self browsers_runningApplicationsWithBundleIdentifier: bundleIdentifier];
+}
+@end
+
+@implementation HSCVolumeMaster (Browsers)
+
++ (void)load
+{
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        /* Replace -_publishVolumeChangesForBundle: */
+        Method original_publish =
+            class_getInstanceMethod(self, @selector(_publishVolumeChangesForBundle:));
+        Method hook_publish =
+            class_getInstanceMethod(self, @selector(browsers_publishVolumeChangesForBundle:));
+        if (!original_publish || !hook_publish) {
+            return;
+        }
+        method_exchangeImplementations(original_publish, hook_publish);
+    });
 }
 
-- (void)browsers_someApplicationDidLaunch: (NSNotification *)notification
+- (void)browsers_publishVolumeChangesForBundle: (NSString *)bundleIdentifer
 {
-    NSRunningApplication *app = notification.userInfo[NSWorkspaceApplicationKey];
-    NSString *bundleID = app.bundleIdentifier;
-    if ([[self.class safariRelatedBundleIDs] containsObject: bundleID]) {
-        /* Let the browser create its sub-processes */
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(kDelayTimeout * NSEC_PER_SEC)),
-                       dispatch_get_main_queue(), ^{
-            NSArray *targets = [self.class safariRelatedProcesses];
-            [targets enumerateObjectsUsingBlock: ^(NSRunningApplication *item, NSUInteger idx, BOOL *stop) {
-                NSNotification *fakeNotification =
-                    [NSNotification notificationWithName: notification.name
-                                                  object: notification.object
-                                                userInfo: @{NSWorkspaceApplicationKey : item}];
-                [self browsers_someApplicationDidLaunch: fakeNotification];
-            }];
-        });
+    NSArray *targets = nil;
+    CGFloat volumeLevel = 1.0f;
+    if ([bundleIdentifer isEqualToString: kSafariMainBundleID]) {
+        targets = HSCSafariBundleIDs();
+        volumeLevel = [self.registry volumeLevelForBundle: kSafariMainBundleID];
     }
+    if ([bundleIdentifer isEqualToString: kChromeMainBundleID]) {
+        NSAssert(NO, @"Google Chrome muting is not supported yet");
 
-    [self browsers_someApplicationDidLaunch: notification];
-}
-
-#pragma mark - Hooks
-
-- (void)setSafariVolumeLevel: (CGFloat)level completion:(void (^)(BOOL))handler
-{
-    dispatch_group_t group = dispatch_group_create();
-    dispatch_queue_t queue = dispatch_queue_create(NULL, DISPATCH_QUEUE_CONCURRENT);
-
-    NSMutableArray *failures = [NSMutableArray new];
-    NSArray *bundles = [self.class safariRelatedBundleIDs];
-    [bundles enumerateObjectsUsingBlock: ^(NSString *item, NSUInteger idx, BOOL *stop) {
-        dispatch_group_wait(group, (kDelayTimeout * NSEC_PER_SEC));
-        dispatch_group_enter(group);
-        dispatch_group_async(group, queue, ^{
-            [self browsers_setVolumeLevel: level
-                                forBundle: item
-                               completion: ^(BOOL succeeded) {
-                if (!succeeded) {
-                    [failures addObject: item];
-                }
-                dispatch_group_leave(group);
-            }];
-        });
+        targets = HSCChromeBundleIDs();
+        volumeLevel = [self.registry volumeLevelForBundle: kChromeMainBundleID];
+    }
+    if (!targets) {
+        /* Fallback to original implemetation */
+        [self browsers_publishVolumeChangesForBundle: bundleIdentifer];
+        return;
+    }
+    [targets enumerateObjectsUsingBlock: ^(NSString *item, NSUInteger idx, BOOL *stop) {
+        NSDictionary *userInfo = @{kHSKUserInfoBundleIDKey : item,
+                                   kHSKUserInfoVolumeLevelKey : @(volumeLevel)};
+        NSDistributedNotificationCenter *center = [NSDistributedNotificationCenter defaultCenter];
+        [center postNotificationName: kHSCVolumeChangeNotificationName
+                              object: nil
+                            userInfo: userInfo];
     }];
-    dispatch_group_notify(group, queue, ^{
-        dispatch_async(self.callbacksQueue, ^{
-            if (failures.count == 0) {
-                if (handler) handler(YES);
-            } else {
-                NSLog(@"Failures: %@", failures);
-                if (handler) handler(NO);
-            }
-        });
-    });
-
 }
+@end
 
-- (void)setChromeVolumeLevel: (CGFloat)level
-                  completion: (void(^)(BOOL succeeded))handler
+#pragma mark - Private 
+
+//__attribute__((const))
+static NSArray* HSCSafariBundleIDs(void)
 {
-    NSLog(@"%@", [self.class chromeRelatedProcesses]);
+    return @[@"com.apple.WebKit.WebContent", @"com.apple.WebKit.PluginProcess"];
 }
 
-
-#pragma mark - Private
-
+//__attribute__((const))
+static NSArray* HSCChromeBundleIDs(void)
+{
+    return @[@"org.chromium.pdf_plugin",
+             @"com.macromedia.PepperFlashPlayer.pepper", @"com.google.Chrome.helper",
+             @"com.google.Chrome.helper.EH", @"com.google.Chrome.helper.NP"];
+}
 
 /**
  * @abstract
@@ -141,23 +131,18 @@
  * @return
  * An array of NSRunningApplication objects; it may be empty.
  */
-+ (NSArray *)safariRelatedProcesses
+static NSArray* HSCSafariProcesses(void)
 {
-    NSArray *targets = [self safariRelatedBundleIDs];
+    NSArray *targets = HSCSafariBundleIDs();
     NSPredicate *onlySafaryStuff = [NSPredicate predicateWithFormat:
                                     @"localizedName CONTAINS 'Safari'"];
     NSMutableArray *results = [NSMutableArray new];
     [targets enumerateObjectsUsingBlock: ^(NSString *item, NSUInteger idx, BOOL *stop) {
-        NSArray *apps = [NSRunningApplication runningApplicationsWithBundleIdentifier: item];
+        NSArray *apps = [NSRunningApplication browsers_runningApplicationsWithBundleIdentifier: item];
         [results addObjectsFromArray: [apps filteredArrayUsingPredicate: onlySafaryStuff]];
     }];
 
     return results;
-}
-
-+ (NSArray *)safariRelatedBundleIDs
-{
-    return @[@"com.apple.Safari", @"com.apple.WebKit.WebContent", @"com.apple.WebKit.PluginProcess"];
 }
 
 /**
@@ -169,9 +154,9 @@
  * @return
  * An array of NSRunningApplication (HSCRunningApplication) objects; it may be empty.
  */
-+ (NSArray *)chromeRelatedProcesses
+static NSArray* HSCChromeProcesses(void)
 {
-    NSArray *targets = [self chromeRelatedBundleIDs];
+    NSArray *targets = HSCChromeBundleIDs();
     NSMutableArray *procs = [NSMutableArray new];
     /**
      * Since Chrome processes aren't registered with LaunchServices
@@ -194,28 +179,20 @@
         }
         @autoreleasepool {
             NSString *str = [NSString stringWithUTF8String: buffer];
+            free(buffer);
             NSUInteger idx = [str rangeOfString: @"Contents/MacOS"].location;
-            if (idx == NSNotFound) {
-                continue;
+            if (idx != NSNotFound) {
+                NSString *path = [str substringToIndex: idx];
+                NSBundle *bundle = [NSBundle bundleWithPath: path];
+                if ([targets containsObject: bundle.bundleIdentifier]) {
+                    HSCRunningApplication *app =
+                    [HSCRunningApplication applicationWithProcessIdentifier: pid_list[i]
+                                                            bundleIdentifer: bundle.bundleIdentifier];
+                    [procs addObject: app];
+                }
             }
-            NSString *path = [str substringToIndex: idx];
-            NSBundle *bundle = [NSBundle bundleWithPath: path];
-            if ([targets containsObject: bundle.bundleIdentifier]) {
-                HSCRunningApplication *app =
-                [HSCRunningApplication applicationWithProcessIdentifier: pid_list[i]
-                                                        bundleIdentifer: bundle.bundleIdentifier];
-                [procs addObject: app];
-            }
-
         }
     }
     return procs;
 }
-+ (NSArray *)chromeRelatedBundleIDs
-{
-    return @[@"org.chromium.pdf_plugin",
-             @"com.macromedia.PepperFlashPlayer.pepper", @"com.google.Chrome.helper",
-             @"com.google.Chrome.helper.EH", @"com.google.Chrome.helper.NP",];
-}
 
-@end

@@ -10,4 +10,16 @@
 #import <HSCore/HSCVolumeMaster.h>
 
 @interface HSCVolumeMaster (Browsers)
+/**
+ * Swizzle the following selectors:
+ *     -_publishVolumeChangesForBundle:
+ */
 @end
+
+@interface NSRunningApplication (Browsers)
+/**
+ * Swizzle the following selectors:
+ *     +runningApplicationsWithBundleIdentifier:
+ */
+@end
+
