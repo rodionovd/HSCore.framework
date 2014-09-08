@@ -266,18 +266,17 @@ static NSString * const kHSCRegistryItemsKey = @"kHSCRegistryItemsKey";
         // we don't need this target to be injected right now, so do it lazily
         delay_sec = kDelayBeforeLazyInjection;
     }
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay_sec * NSEC_PER_SEC)),
-                   dispatch_get_main_queue(),
-                   ^{
-                       // initial injection for this instance of the application
-                       [self _injectBundle: bundleID completion: ^(BOOL succeeded) {
-                           if (!succeeded) {
-                               NSLog(@"Unable to re-inject <%@>", bundleID);
-                           } else {
-                               [self _publishVolumeChangesForBundle: bundleID];
-                           }
-                       }];
-                   });
+    dispatch_time_t time = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay_sec * NSEC_PER_SEC));
+    dispatch_after(time, dispatch_get_main_queue(), ^{
+        // initial injection for this instance of the application
+        [self _injectBundle: bundleID completion: ^(BOOL succeeded) {
+            if (!succeeded) {
+                NSLog(@"Unable to re-inject <%@>", bundleID);
+            } else {
+                [self _publishVolumeChangesForBundle: bundleID];
+            }
+        }];
+    });
 }
 
 - (void)_initializeBundle: (NSString *)bundleID

@@ -31,7 +31,7 @@
 }
 
 + (instancetype)applicationWithProcessIdentifier: (pid_t)pid
-                                       bundleIdentifer: (NSString *)bundleID
+                                 bundleIdentifer: (NSString *)bundleID
 {
     HSCRunningApplication *application = [[HSCRunningApplication alloc]
                                           initWithProcessIdentifier: pid
@@ -39,7 +39,8 @@
     return application;
 }
 
-- (instancetype)initWithProcessIdentifier:(pid_t)pid bundleIdentifer:(NSString *)bundleID
+- (instancetype)initWithProcessIdentifier: (pid_t)pid
+                          bundleIdentifer: (NSString *)bundleID
 {
     if ((self = [super init])) {
         _customPID = pid;

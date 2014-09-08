@@ -16,5 +16,5 @@
 - (pid_t)processIdentifier;
 
 + (instancetype)applicationWithProcessIdentifier: (pid_t)pid
-                                       bundleIdentifer: (NSString *)bundleID;
+                                 bundleIdentifer: (NSString *)bundleID;
 @end

@@ -72,7 +72,7 @@ static void hook_IOProc(AudioDeviceIOProc callback);
     err = AudioObjectGetPropertyData(kAudioObjectSystemObject, &property_address,
                                      0, NULL, &property_size, &mainAudioDeviceID);
     if (err != kAudioHardwareNoError || mainAudioDeviceID == kAudioDeviceUnknown) {
-        NSLog(@"Could not find a main output audio device");
+        NSLog(@"Could not find the main output audio device");
         return NO;
     }
     uintptr_t HALDevice = HALObjectMap_CopyObjectByObjectID(mainAudioDeviceID);
