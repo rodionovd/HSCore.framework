@@ -71,7 +71,7 @@ static void hook_IOProc(AudioDeviceIOProc callback);
     };
     err = AudioObjectGetPropertyData(kAudioObjectSystemObject, &property_address,
                                      0, NULL, &property_size, &mainAudioDeviceID);
-    if (err != kAudioHardwareNoError || mainAudioDeviceID == kAudioDeviceUnknown) {
+    if (err != kAudioHardwareNoError || mainAudioDeviceID == kAudioObjectUnknown) {
         NSLog(@"Could not find the main output audio device");
         return NO;
     }
